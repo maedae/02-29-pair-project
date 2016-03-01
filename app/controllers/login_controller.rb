@@ -1,3 +1,7 @@
+MyApp.get "/" do
+  erb :"/users/user_login"
+end
+
 MyApp.get "/login" do
   erb :"/users/user_login"
 end

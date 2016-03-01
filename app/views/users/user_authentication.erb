@@ -6,6 +6,6 @@
   <% end %>
   <form  method="POST" action="/users/<%= @current_user.id %>/authenticate/confirmation">
     Please Verify your identify by entering your password: <br>
-    <input type="text" name="authentication" value=""></p>
+    <input type="password" name="authentication" value=""></p>
     <p><input type="submit" value="Submit"></p>
   </form>
