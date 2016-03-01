@@ -47,6 +47,24 @@ class User < ActiveRecord::Base
     return message
   end
 
+  # RETURNS Array containing 2 - 0 String elements, depending on Method algorithm outcome
+  def update_user_check_valid_action
+    email = check_create_user_email_is_valid
+    name =  check_create_user_name_is_valid
+    message = []
+
+    if name == false
+      message << user_name_error
+    end
+
+    if email == false
+      message << user_email_error
+    end
+
+    return message
+  end
+
+
   # Returns array of building_id column data from Renter collection 
   def find_user_renter_building_info
     arr_renters = []

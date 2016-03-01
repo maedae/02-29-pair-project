@@ -1,0 +1,26 @@
+<center><h1> Update Account </h1>  </center>
+
+<% if @duplicate_email_error == true %>
+  <font color="red"><b><%= @current_user.user_already_exists_error %> </b></font>
+<% end %>
+
+<% if @error == true %>
+  <% @error_check.each do |error| %>
+   <font color="red"><b> <%= error %> </b></font>
+    <br>
+  <% end %>
+  <br>
+  <br>
+<% end %>  
+
+<form  method="POST" action="/users/update/confirmation">
+
+  <p> Name:&emsp;
+  <input type="text" name="name" value="<%= @current_user.name %>"></p>
+
+  <p> Email:&emsp;
+  <input type="text" name="email" value="<%= @current_user.email %>"></p>
+
+  <p><input type="submit" value="Update"></p>
+
+</form>

@@ -28,3 +28,41 @@ MyApp.get "/home" do
       erb :"/users/view_user_dashboard"
     end
 end
+
+MyApp.get "/users/:id/authenticate" do
+  @current_user = User.find_by_id(session[:user_id])
+  erb :"/users/user_authentication"
+end 
+
+MyApp.post "/users/:id/authenticate/confirmation" do
+  @current_user = User.find_by_id(session[:user_id])
+    if @current_user.password != params[:authentication]
+      @authentication_error = true
+      erb :"/users/user_authentication"
+    else
+      redirect :"/users/#{session[:user_id]}/update"
+    end
+end 
+
+MyApp.get "/users/:id/update" do
+  @current_user = User.find_by_id(session[:user_id])
+  erb :"/users/update_user"
+end 
+
+MyApp.post "/users/update/confirmation" do
+     @current_user = User.find_by_id(session[:user_id])
+     @current_user.name = params[:name].downcase.capitalize
+     @current_user.email = params[:email]
+     @error_check = @current_user.update_user_check_valid_action
+
+      if @error_check.empty? == false
+          @error = true
+          erb :"/users/update_user"
+      elsif User.where({"email" => @current_user.email}).where.not("id" => @current_user.id).length >= 1
+          @duplicate_email_error = true
+          erb :"/users/update_user"
+      else
+        @current_user.save
+        redirect :"/home"
+      end
+end
