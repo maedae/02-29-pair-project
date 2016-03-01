@@ -10,22 +10,20 @@ MyApp.get "/home" do
     if @current_user == nil
         redirect :"/login"
     else 
-      arr_renters = []
-      @renters = Renter.where({"user_id" => @current_user.id})
-      @renters.each do |r|
-        arr_renters << r.building_id
-      end
-      @past_buildings = []
-      @open_building = []
+      @rent_info = @current_user.find_user_renter_building_info
+      if @rent_info.empty? == true
+         @no_renter_info_error = true
+      else
+          @past_buildings = @current_user.past_building_info_for_renter_based_on_user_id
+          @current_building = @current_user.current_building_info_for_renter_based_on_user_id
 
-      arr_renters.each do |r|
-        
-        building = Building.find_by_id(r)
-        if building.locked == true
-          @past_buildings << building
-        else 
-          @open_building << building
-        end
+          if @past_buildings.empty?
+            @no_previous_building_error = true
+          end
+
+          if @current_buildings.empty?
+             @no_current_building_error = true
+           end
       end
       erb :"/users/view_user_dashboard"
     end

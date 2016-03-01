@@ -49,15 +49,39 @@ class User < ActiveRecord::Base
 
   def find_user_renter_building_info
     arr_renters = []
-    if Renter.where({"user_id" => self.id}) == nil
-      return arr_renters
-      break
-    else
+    if Renter.where({"user_id" => self.id}) != nil
       renters = Renter.where({"user_id" => self.id})
-      @renters.each do |r|
+      renters.each do |r|
         arr_renters << r.building_id
       end
+    end
       return arr_renters
+  end
+
+  def past_building_info_for_renter_based_on_user_id
+    renters = find_user_renter_building_info
+    past_buildings = []
+
+    renters.each do |r|
+      building = Building.find_by_id(r)
+      if building.locked == true
+        past_buildings << building
+      end
+    end
+    return past_buildings
+  end
+
+  def current_building_info_for_renter_based_on_user_id
+    renters = find_user_renter_building_info
+    open_buildings = []
+
+    renters.each do |r|
+      building = Building.find_by_id(r)
+      if building.locked == false
+        open_buildings << building
+      end
+    end
+    return open_buildings
   end
 
   # RETURNS String
