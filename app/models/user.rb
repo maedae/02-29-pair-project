@@ -64,7 +64,7 @@ class User < ActiveRecord::Base
 
     renters.each do |r|
       building = Building.find_by_id(r)
-      if building.locked == true
+      if building.locked  
         past_buildings << building
       end
     end

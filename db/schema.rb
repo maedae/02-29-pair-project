@@ -19,7 +19,6 @@ ActiveRecord::Schema.define(version: 0) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.string   "address"
-    t.integer  "renter_id"
     t.string   "landlord_name"
     t.string   "building_image"
     t.date     "move_in"
@@ -35,15 +34,6 @@ ActiveRecord::Schema.define(version: 0) do
     t.string   "description"
     t.string   "condition"
     t.integer  "room_id"
-    t.integer  "created_by"
-    t.integer  "updated_by"
-  end
-
-  create_table "lists", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "title"
-    t.boolean  "completed"
     t.integer  "created_by"
     t.integer  "updated_by"
   end
@@ -71,18 +61,6 @@ ActiveRecord::Schema.define(version: 0) do
     t.string   "room_image"
     t.string   "location"
     t.integer  "building_id"
-    t.integer  "created_by"
-    t.integer  "updated_by"
-  end
-
-  create_table "todos", force: :cascade do |t|
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.string   "title"
-    t.text     "description"
-    t.boolean  "completed"
-    t.integer  "user_id"
-    t.integer  "list_id"
     t.integer  "created_by"
     t.integer  "updated_by"
   end
