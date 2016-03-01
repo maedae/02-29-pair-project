@@ -1,0 +1,11 @@
+  <center><h1>Authentication</h1></center>
+
+
+  <% if @authentication_error == true %>
+    <font color="red"><b> Invalid Password. </b></font>
+  <% end %>
+  <form  method="POST" action="/users/update/authenticate/confirmation">
+    Please Verify your identify by entering your password: <br>
+    <input type="password" name="authentication" value=""></p>
+    <p><input type="submit" value="Submit"></p>
+  </form>
