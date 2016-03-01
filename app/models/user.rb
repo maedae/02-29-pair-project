@@ -47,6 +47,7 @@ class User < ActiveRecord::Base
     return message
   end
 
+  # Returns array of building_id column data from Renter collection 
   def find_user_renter_building_info
     arr_renters = []
     if Renter.where({"user_id" => self.id}) != nil
@@ -58,6 +59,7 @@ class User < ActiveRecord::Base
       return arr_renters
   end
 
+# RETURNS Array of ids column data from Buildig collection if building row is flagged as locked.
   def past_building_info_for_renter_based_on_user_id
     renters = find_user_renter_building_info
     past_buildings = []
@@ -71,6 +73,7 @@ class User < ActiveRecord::Base
     return past_buildings
   end
 
+  # RETURNS Array of ids column data from Buildig collection if building row is not flagged as locked.
   def current_building_info_for_renter_based_on_user_id
     renters = find_user_renter_building_info
     open_buildings = []
