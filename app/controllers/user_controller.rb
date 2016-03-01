@@ -53,7 +53,8 @@ MyApp.post "/users/update/confirmation" do
      @current_user = User.find_by_id(session[:user_id])
      @current_user.name = params[:name].downcase.capitalize
      @current_user.email = params[:email]
-     @error_check = @current_user.update_user_check_valid_action
+     @current_user.password = params[:password]
+     @error_check = @current_user.create_user_check_valid_action
 
       if @error_check.empty? == false
           @error = true

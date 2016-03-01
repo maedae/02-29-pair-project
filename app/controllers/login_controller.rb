@@ -33,7 +33,7 @@ MyApp.get "/create_account" do
 end
 
 # handles form data sent from "/users/create"
-MyApp.post "/sign_up/confirmation" do
+MyApp.post "/create_account/confirmation" do
   @new_user = User.new
   @new_user.name = params[:name].downcase.capitalize
   @new_user.email = params[:email]
