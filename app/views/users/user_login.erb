@@ -1,0 +1,21 @@
+<center><h1>Sign In</h1></center>
+
+<% if @invalid_email == true %>
+  <font color="red"><b> Invalid email. </b></font>
+  <br>
+  <br>
+<% end %> 
+
+<% if @invalid_password == true %>
+  <font color="red"><b>Invalid password.</b></font>
+<% end %>
+
+<form  method="POST" action="/login/confirmation">
+
+<p> Email:&emsp;
+  <input type="text" name="email" value="<%= params[:email] %>"></p>
+<p> Password:&emsp;
+  <input type="text" name="password" value="<%= params[:password] %>"></p>
+<p><input type="submit" value="Login"></p>
+
+<a href="/create_account"> Create New Account </a>

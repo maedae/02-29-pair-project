@@ -1,0 +1,31 @@
+<center><h1> Create a New Account </h1>  </center>
+
+<% if @error == true %>
+  <% @error_check.each do |error| %>
+   <font color="red"><b> <%= error %> </b></font>
+    <br>
+  <% end %>
+  <br>
+  <br>
+<% end %>
+
+<% if @matching_user_error == true %>
+  <font color="red"><b><%= @new_user.user_already_exists_error %> </b></font>
+  <br>
+  <br>
+<% end %>
+
+<form  method="POST" action="/sign_up/confirmation">
+
+<p> Name:&emsp;
+<input type="text" name="name" value="<%= params[:name] %>"></p>
+
+<p> Email:&emsp;
+<input type="text" name="email" value="<%= params[:email] %>"></p>
+
+<p> Password:&emsp;
+<input type="text" name="password" value="<%= params[:password] %>"></p>
+
+<p><input type="submit" value="Create"></p>
+
+</form>

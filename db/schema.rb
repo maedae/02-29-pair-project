@@ -15,4 +15,86 @@ ActiveRecord::Schema.define(version: 0) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "buildings", force: :cascade do |t|
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.string   "address"
+    t.integer  "renter_id"
+    t.string   "landlord_name"
+    t.string   "building_image"
+    t.date     "move_in"
+    t.date     "move_out"
+    t.integer  "created_by"
+    t.integer  "updated_by"
+  end
+
+  create_table "items", force: :cascade do |t|
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "title"
+    t.string   "description"
+    t.string   "condition"
+    t.integer  "room_id"
+    t.integer  "created_by"
+    t.integer  "updated_by"
+  end
+
+  create_table "lists", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "title"
+    t.boolean  "completed"
+    t.integer  "created_by"
+    t.integer  "updated_by"
+  end
+
+  create_table "photos", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "item_id"
+    t.string   "image"
+    t.integer  "created_by"
+    t.integer  "updated_by"
+  end
+
+  create_table "renters", force: :cascade do |t|
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "user_id"
+    t.integer  "building_id"
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "title"
+    t.string   "room_image"
+    t.string   "location"
+    t.integer  "building_id"
+    t.integer  "created_by"
+    t.integer  "updated_by"
+  end
+
+  create_table "todos", force: :cascade do |t|
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "title"
+    t.text     "description"
+    t.boolean  "completed"
+    t.integer  "user_id"
+    t.integer  "list_id"
+    t.integer  "created_by"
+    t.integer  "updated_by"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "name"
+    t.string   "email"
+    t.string   "password"
+    t.integer  "created_by"
+    t.integer  "updated_by"
+  end
+
 end
