@@ -44,9 +44,20 @@ class User < ActiveRecord::Base
     if password == false
       message << user_password_error
     end
-    
-
     return message
+  end
+
+  def find_user_renter_building_info
+    arr_renters = []
+    if Renter.where({"user_id" => self.id}) == nil
+      return arr_renters
+      break
+    else
+      renters = Renter.where({"user_id" => self.id})
+      @renters.each do |r|
+        arr_renters << r.building_id
+      end
+      return arr_renters
   end
 
   # RETURNS String
