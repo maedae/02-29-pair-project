@@ -10,7 +10,6 @@ DB.define_column("users", "updated_by", "integer")
 
 DB.define_table("buildings")
 DB.define_column("buildings", "address", "string")
-DB.define_column("buildings", "renter_id", "integer")
 DB.define_column("buildings", "landlord_name", "string")
 DB.define_column("buildings", "building_image", "string")
 DB.define_column("buildings", "move_in", "date")
