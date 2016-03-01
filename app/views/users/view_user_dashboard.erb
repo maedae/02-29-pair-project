@@ -13,15 +13,7 @@
 <% end %>
 
 
-<h3> Past Rentals </h3>
-<% if @no_renter_info_error == true || @no_previous_building_error == true %>
-  You do not have any past rentals recorded.
-<% else  %>
-   <% @past_buildings.each do |building| %>
-     <% building = Building.find_by_id(building) %>
-     <%= building.address %>
-   <% end %>
-<% end %>
+<h3><a href="/buildings/history"> Previous Rentals </a> </h3>
 
 <br>
 <br>
