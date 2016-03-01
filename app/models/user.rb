@@ -66,8 +66,8 @@ class User < ActiveRecord::Base
 
     renters.each do |r|
       building = Building.find_by_id(r)
-      if building.locked  
-        past_buildings << building
+      if building.locked == true 
+        past_buildings << building.id
       end
     end
     return past_buildings
@@ -81,7 +81,7 @@ class User < ActiveRecord::Base
     renters.each do |r|
       building = Building.find_by_id(r)
       if building.locked == false
-        open_buildings << building
+        open_buildings << building.id
       end
     end
     return open_buildings
