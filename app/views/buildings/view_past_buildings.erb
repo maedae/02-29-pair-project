@@ -1,6 +1,6 @@
 <center><h1>Past Rentals </h1></center>
 
-<% if @no_renter_info_error == true || @no_previous_building_error == true %>
+<% if @no_previous_building_error == true %>
   You do not have any past rentals recorded.
 <% else  %>
    <% @past_buildings.each do |building| %>

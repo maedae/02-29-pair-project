@@ -55,8 +55,9 @@ class User < ActiveRecord::Base
       renters.each do |r|
         arr_renters << r.building_id
       end
-    end
-      return arr_renters
+    end 
+
+    return arr_renters.empty? ? nil : arr_renters
   end
 
 # RETURNS Array of ids column data from Buildig collection if building row is flagged as locked.
@@ -64,13 +65,17 @@ class User < ActiveRecord::Base
     renters = find_user_renter_building_info
     past_buildings = []
 
-    renters.each do |r|
-      building = Building.find_by_id(r)
-      if building.locked == true 
-        past_buildings << building.id
+    if renters != nil
+      renters.each do |r|
+        building = Building.find_by_id(r)
+        if building.locked == true 
+          past_buildings << building.id
+        end
       end
     end
-    return past_buildings
+
+    return past_buildings.empty? ? nil : past_buildings 
+  
   end
 
   # RETURNS Array of ids column data from Buildig collection if building row is not flagged as locked.
@@ -78,13 +83,16 @@ class User < ActiveRecord::Base
     renters = find_user_renter_building_info
     open_buildings = []
 
-    renters.each do |r|
-      building = Building.find_by_id(r)
-      if building.locked == false
-        open_buildings << building.id
+    if renters != nil
+      renters.each do |r|
+        building = Building.find_by_id(r)
+        if building.locked == false
+          open_buildings << building.id
+        end
       end
     end
-    return open_buildings
+   
+    return open_buildings.empty? ? nil : open_buildings
   end
 
   # RETURNS String

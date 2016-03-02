@@ -2,15 +2,16 @@
 
 
 <h3> Current Rentals </h3>
-<% if @no_renter_info_error == true || @no_current_building_error == true %>
+<% if @no_current_building_error == true %>
   You do not have any active rentals available <br>
   <a href="buildings/create"> Add Building </a>
-<% else  %>
+<% else %>
    <% @current_building.each do |building| %>
-     <% building = Building.find_by_id(building) %>
-     <%= building.address %>
-   <% end %>
+      <% building = Building.find_by_id(building) %>
+      <%= building.address %> <br>
+      <% end %>
 <% end %>
+
 
 
 <h3><a href="/buildings/history"> Previous Rentals </a> </h3>
