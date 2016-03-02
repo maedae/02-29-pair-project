@@ -72,7 +72,7 @@ class UserTest < Minitest::Test
 
   def test_past_building_info_for_renter_based_on_user_id
     assert_equal([2], @current_user.past_building_info_for_renter_based_on_user_id)
-    assert_equal([], @other_user.past_building_info_for_renter_based_on_user_id)
+    assert_equal(nil, @other_user.past_building_info_for_renter_based_on_user_id)
   end
 
   def test_current_building_info_for_renter_based_on_user_id

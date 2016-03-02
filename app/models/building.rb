@@ -1,14 +1,14 @@
 class Building < ActiveRecord::Base
 
   def find_rooms_for_building
-    arr_rooms = []
+    @arr_rooms = []
     if Room.where({"building_id" => self.id}) != nil
       rooms = Room.where({"building_id" => self.id})
       rooms.each do |r|
-        arr_rooms << r.id
+        @arr_rooms << r.id
       end
     end 
-    return arr_rooms.empty? ? nil : arr_rooms
+    return @arr_rooms.empty? == false ? @arr_rooms : nil
   end
   
   def check_if_building_has_other_renters
