@@ -1,0 +1,43 @@
+<center><h1> <%= @room.title %> </h1>  </center>
+
+Location: <%= @room.location %> <br>
+<br>
+<% if @creator != nil %>
+Created by:<%= @creator.name %> on <%= @room.created_at.strftime("%m/%d/%Y") %><br>
+<% end %>
+<% if @editor != nil %>
+Updated by:<%= @editor.name %> on <%= @room.updated_at.strftime("%m/%d/%Y") %>
+<% end %>
+<br>
+<br>
+<h3> DAMAGED FEATURES </h3>
+<% if @no_damages_error == true %>
+  You do not have any damaged features in this room <br>
+
+<% else %>
+   <% @damaged_items.each do |item| %>
+      <% item = Item.find_by_id(item) %>
+      <%= item.title %> <br>
+      <% end %>
+<% end %>
+
+
+<h3> FEATURES IN GOOD CONDITION </h3>
+<% if @no_undamaged_items_error == true %>
+  You do not have any undamaged features in this room <br>
+
+<% else %>
+   <% @undamaged_items.each do |item| %>
+      <% item = Item.find_by_id(item) %>
+      <%= item.title %> <br>
+      <% end %>
+<% end %>
+<br>
+<br>
+<a href="/buildings/<%= @building.id %>/rooms/<%= @room.id %>/items/create"> Add New Feature </a>
+<br>
+<br>
+       <a href="/buildings/<%= @building.id %>/rooms/<%= @room.id %>/update"> Edit Room Info </a>&emsp;&emsp;
+       <a href="/buildings/<%= @building.id %>/rooms/<%= @room.id %>/delete"> Delete Room </a>&emsp;&emsp;<br>
+
+

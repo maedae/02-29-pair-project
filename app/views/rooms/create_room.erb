@@ -1,0 +1,28 @@
+<center><h1> Add a Room to <%= @building.address %> </h1>  </center>
+
+<% if @error == true %>
+  <% @error_check.each do |error| %>
+   <font color="red"><b> <%= error %> </b></font>
+    <br>
+  <% end %>
+  <br>
+  <br>
+<% end %>
+
+
+<form  method="POST" action="/buildings/<%= @building.id %>/rooms/create/confirmation">
+
+<p>Room Location:&emsp;<input type="radio" name="location_radio" value="Indoors"> Indoors &emsp;&emsp;
+<input type="radio" name="location_radio" value="Outdoors"> Outdoors</p>
+
+<p> Room Type:&emsp;
+<input type="text" name="title" value="<%= params[:title] %>"></p>
+
+<p>Image:&emsp;
+<input type="text" name="room_image" value="<%= params[:room_image] %>"></p>
+
+<p><input type="submit" value="Add Room"></form></p>
+
+<p> <form  method="GET" action="/buildings/<%= @building.id %>">
+<input type="submit" value="Finished Adding Rooms">
+</form>

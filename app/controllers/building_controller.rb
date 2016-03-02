@@ -62,7 +62,7 @@ MyApp.post "/buildings/create/confirmation" do
     @renter.building_id = @building.id
     @renter.save
   
-    redirect :"/home"
+    redirect :"/buildings/#{@building.id}/rooms/create"
   end
 end
 

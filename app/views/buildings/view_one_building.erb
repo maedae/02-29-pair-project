@@ -20,13 +20,19 @@ Updated by:<%= @editor.name %> on <%= @building.updated_at.strftime("%m/%d/%Y") 
 <h3> ROOMS </h3>
 <% if @no_current_room_error == true %>
   You do not have any rooms for this rental <br>
-  <a href="buildings/<%= @building.id %>/rooms/add"> Add Room </a>
+
 <% else %>
    <% @rooms.each do |room| %>
       <% room = Room.find_by_id(room) %>
       <%= room.title %> <br>
+      <a href="/buildings/<%= @building.id %>/rooms/<%= room.id %>"> View </a>&emsp;&emsp;
+      <a href="/buildings/<%= @building.id %>/rooms/<%= room.id %>/update"> Edit </a>&emsp;&emsp;
+      <a href="/buildings/<%= @building.id %>/rooms/<%= room.id %>/delete"> Delete </a>&emsp;&emsp;<br>
       <% end %>
 <% end %>
+<br>
+<br>
+<a href="/buildings/<%= @building.id %>/rooms/create"> Add Room </a>
 <br>
 <br>
        <a href="/buildings/<%= @building.id %>/update"> Edit Rental Info </a>&emsp;&emsp;
