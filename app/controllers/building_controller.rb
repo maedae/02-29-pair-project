@@ -108,11 +108,6 @@ MyApp.post "/buildings/:building_id/delete/confirmation" do
   @current_user = User.find_by_id(session[:user_id])
   @building = Building.find_by_id(params[:building_id])
   Renter.where({"user_id" => @current_user.id, "building_id" => @building.id}).delete_all
-
-  if @building.check_if_building_has_other_renters == false
-    @building.delete
-    redirect :"/home"
-  else
-    redirect :"/home"
-  end
+  @building.check_if_building_has_other_renters
+  redirect :"/home"
 end 
