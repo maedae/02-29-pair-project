@@ -1,0 +1,25 @@
+<center><h1> <%= @building.address %> </h1>  </center>
+
+
+<%= @building.address %><br>
+<%= @building.apt_no %> <br>
+<%= @building.city %> <br>
+<%= @building.state %><br>
+<%= @building.zip_code %><br>
+<%= @building.landlord_name %> <br>
+<%= @building.building_image %> <br>
+<%= @building.move_in %> <br>
+<%= @building_move_out %>
+<br>
+<br>
+
+<h3> ROOMS </h3>
+<% if @no_current_room_error == true %>
+  You do not have any rooms for this rental <br>
+  <a href="buildings/<%= @building.id %>/rooms/add"> Add Room </a>
+<% else %>
+   <% @rooms.each do |room| %>
+      <% room = Room.find_by_id(room) %>
+      <%= room.title %> <br>
+      <% end %>
+<% end %>

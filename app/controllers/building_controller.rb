@@ -15,6 +15,18 @@ MyApp.get "/buildings/history" do
     erb :"/buildings/view_past_buildings"
 end
 
+MyApp.get "/buildings/:building_id" do
+  @current_user = User.find_by_id(session[:user_id])
+  @building = Building.find_by_id(params[:building_id])
+  @rooms = @building.find_rooms_for_building 
+      
+  if @rooms == nil
+    @no_current_room_error = true
+  end
+
+  erb :"/buildings/view_one_building"
+end
+
 MyApp.get "/buildings/create" do
   @current_user = User.find_by_id(session[:user_id])
   erb :"/buildings/create_building"
@@ -43,3 +55,10 @@ MyApp.post "/buildings/create/confirmation" do
   
   redirect :"/home"
 end
+
+MyApp.get "/buildings/:building_id/update" do
+  @current_user = User.find_by_id(session[:user_id])
+  @building = Building.find_by_id(params[:building_id])
+  erb :"/buildings/update_building"
+end 
+

@@ -8,7 +8,10 @@
 <% else %>
    <% @current_building.each do |building| %>
       <% building = Building.find_by_id(building) %>
-      <%= building.address %> <br>
+      <%= building.address %>&emsp;&emsp;
+       <a href="/buildings/<%= building.id %>"> View </a>&emsp;&emsp;
+       <a href="/buildings/<%= building.id %>/update"> Edit </a>&emsp;&emsp;
+       <a href="/buildings/<%= building.id %>/delete"> Delete </a>&emsp;&emsp;<br>
       <% end %>
 <% end %>
 
