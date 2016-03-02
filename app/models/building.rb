@@ -11,6 +11,10 @@ class Building < ActiveRecord::Base
     return arr_rooms.empty? ? nil : arr_rooms
   end
 
+  def check_if_building_has_other_renters
+      return Renter.exists?(:building_id => self.id)
+  end
+
   def create_building_check_valid_action
     address = check_create_building_address_is_valid
     city = check_create_building_city_is_valid
