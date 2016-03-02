@@ -18,3 +18,8 @@ MyApp.get "/buildings/history" do
     end
     erb :"/buildings/view_past_buildings"
 end
+
+MyApp.get "/buildings/create" do
+  @current_user = User.find_by_id(session[:user_id])
+  erb :"/buildings/create_building"
+end 

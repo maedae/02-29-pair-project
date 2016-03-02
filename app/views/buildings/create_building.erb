@@ -1,0 +1,39 @@
+<center><h1> Add a New Rental </h1>  </center>
+
+
+
+<form  method="POST" action="/buildings/create/confirmation">
+
+<p> Address:&emsp;
+<input type="text" name="address" value="<%= params[:address] %>"></p>
+
+<p>Apt #:&emsp;
+<input type="text" name="apt" value="<%= params[:apt] %>"></p>
+
+<p>City:&emsp;
+<input type="text" name="city" value="<%= params[:city] %>"></p>
+
+<p>State:&emsp;
+<input type="text" name="state" value="<%= params[:state] %>"></p>
+
+<p>ZIP Code:&emsp;
+<input type="text" name="zip" value="<%= params[:zip] %>"></p>
+
+<p> Landlord:&emsp;
+<input type="text" name="landlord" value="<%= params[:landlord] %>"></p>
+
+<p> Optional Image:&emsp;
+<input type="text" name="rental_image" value="<%= params[:rental_image] %>"></p>
+
+<p> Other Individuals on the Lease:&emsp;
+<input type="text" name="co_renter" value="<%= params[:co_renter] %>"></p>
+
+<p> Move-In Date:&emsp;
+<input type="date" name="move_in_date" value="<%= params[:move_in_date] %>"></p>
+
+<p> Move-Out Date:&emsp;
+<input type="date" name="move_out_date" value="<%= params[:move_out_date] %>"></p>
+
+<p><input type="submit" value="Create"></p>
+
+</form>
