@@ -11,4 +11,8 @@ class Building < ActiveRecord::Base
 
     return arr_rooms.empty? ? nil : arr_rooms
   end
+
+  def get_updated_by_user_info
+    return self.updated_by == nil ?  nil : User.find_by_id(self.created_by)
+  end
 end

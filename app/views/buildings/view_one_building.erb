@@ -1,15 +1,19 @@
 <center><h1> <%= @building.address %> </h1>  </center>
 
 
-<%= @building.address %><br>
-<%= @building.apt_no %> <br>
-<%= @building.city %> <br>
-<%= @building.state %><br>
-<%= @building.zip_code %><br>
+<%= "#{@building.address}. #{@building.apt_no}" %><br>
+<%= "#{@building.city}, #{@building.state}. #{@building.zip_code}" %>
+<br>
+<br>
 <%= @building.landlord_name %> <br>
 <%= @building.building_image %> <br>
 <%= @building.move_in %> <br>
-<%= @building_move_out %>
+<%= @building.move_out %><br>
+Created by:<%= @creator.name %> on <%= @building.created_at.strftime("%m/%d/%Y") %><br>
+
+<% if @editor != nil %>
+Updated by:<%= @editor.name %> on <%= @building.updated_at.strftime("%m/%d/%Y") %>
+<% end %>
 <br>
 <br>
 
@@ -23,3 +27,7 @@
       <%= room.title %> <br>
       <% end %>
 <% end %>
+<br>
+<br>
+       <a href="/buildings/<%= @building.id %>/update"> Edit Rental Info </a>&emsp;&emsp;
+       <a href="/buildings/<%= @building.id %>/delete"> Delete Rental </a>&emsp;&emsp;<br>

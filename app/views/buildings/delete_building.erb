@@ -1,0 +1,9 @@
+<center><h1>Delete <%= @building.address %></h1></center>
+Are you sure you want to remove this Rental Record from your account?
+
+
+<form  method="GET" action="/buildings/<%= @building.id %>">
+<input type="submit" value="Cancel"> </form>
+
+<form  method="POST" action="/buildings/<%= @building.id %>/delete/confirmation">
+<input type="submit" value="Delete"> </form>

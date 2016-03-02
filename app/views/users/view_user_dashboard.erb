@@ -1,10 +1,11 @@
 <center> <h1> Welcome,  <%= @current_user.name %>!</h1></center>
+<a href="buildings/create"> Add New Rental </a>
 
 
 <h3> Current Rentals </h3>
 <% if @no_current_building_error == true %>
-  You do not have any active rentals available <br>
-  <a href="buildings/create"> Add Building </a>
+  You do not have any active rentals available <br><br>
+  <a href="buildings/create"> Add New Rental </a>
 <% else %>
    <% @current_building.each do |building| %>
       <% building = Building.find_by_id(building) %>
@@ -14,7 +15,6 @@
        <a href="/buildings/<%= building.id %>/delete"> Delete </a>&emsp;&emsp;<br>
       <% end %>
 <% end %>
-
 
 
 <h3><a href="/buildings/history"> Previous Rentals </a> </h3>
