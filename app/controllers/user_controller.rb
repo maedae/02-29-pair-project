@@ -17,11 +17,11 @@ MyApp.get "/home" do
           @past_buildings = @current_user.past_building_info_for_renter_based_on_user_id
           @current_building = @current_user.current_building_info_for_renter_based_on_user_id
 
-          if @past_buildings.empty?
+          if @past_buildings.empty? == true
             @no_previous_building_error = true
           end
 
-          if @current_buildings.empty?
+          if @current_buildings.empty? == true
              @no_current_building_error = true
           end
       end

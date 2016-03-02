@@ -23,3 +23,27 @@ MyApp.get "/buildings/create" do
   @current_user = User.find_by_id(session[:user_id])
   erb :"/buildings/create_building"
 end 
+
+MyApp.post "/buildings/create/confirmation" do
+  @current_user = User.find_by_id(session[:user_id])
+  @building = Building.new
+  @building.address = params[:address]
+  @building.apt_no = params[:apt]
+  @building.city = params[:city]
+  @building.state = params[:state]
+  @building.zip_code = params[:zip]
+  @building.landlord_name = params[:landlord]
+  @building.building_image = params[:rental_image]
+  @building.move_in = params[:move_in_date]
+  @building.move_out = params[:move_out_date]
+  @building.created_by = @current_user.id
+  @building.locked = false
+  @building.save
+
+  @renter = Renter.new
+  @renter.user_id = @current_user.id
+  @renter.building_id = @building.id
+  @renter.save
+  
+  redirect :"/home"
+end
