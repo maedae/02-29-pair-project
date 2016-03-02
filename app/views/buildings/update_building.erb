@@ -1,6 +1,13 @@
 <center><h1> Update Rental </h1>  </center>
 
-
+<% if @error == true %>
+  <% @error_check.each do |error| %>
+   <font color="red"><b> <%= error %> </b></font>
+    <br>
+  <% end %>
+  <br>
+  <br>
+<% end %>
 
 <form  method="POST" action="/buildings/<%= @building.id %>/update/confirmation">
 

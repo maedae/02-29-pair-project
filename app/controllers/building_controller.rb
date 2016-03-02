@@ -46,16 +46,24 @@ MyApp.post "/buildings/create/confirmation" do
   @building.building_image = params[:rental_image]
   @building.move_in = params[:move_in_date]
   @building.move_out = params[:move_out_date]
+
   @building.created_by = @current_user.id
   @building.locked = false
-  @building.save
-
-  @renter = Renter.new
-  @renter.user_id = @current_user.id
-  @renter.building_id = @building.id
-  @renter.save
+  @error_check = @building.create_building_check_valid_action
   
-  redirect :"/home"
+
+  if @error_check.empty? == false
+    @error = true
+    erb :"/buildings/create_building"
+  else
+    @building.save
+    @renter = Renter.new
+    @renter.user_id = @current_user.id
+    @renter.building_id = @building.id
+    @renter.save
+  
+    redirect :"/home"
+  end
 end
 
 MyApp.get "/buildings/:building_id/update" do
@@ -78,9 +86,16 @@ MyApp.post "/buildings/:building_id/update/confirmation" do
   @building.move_out = params[:move_out_date]
   @building.updated_by = @current_user.id
   @building.locked = false
-  @building.save
+  @error_check = @building.create_building_check_valid_action
 
-  redirect :"/buildings/#{@building.id}."
+  if @error_check.empty? == false
+    @error = true
+    erb :"/buildings/update_building"
+  else
+    @building.save
+
+    redirect :"/buildings/#{@building.id}."
+  end
 end
 
 MyApp.get "/buildings/:building_id/delete" do

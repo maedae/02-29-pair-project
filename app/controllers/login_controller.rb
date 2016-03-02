@@ -3,6 +3,9 @@ MyApp.get "/" do
 end
 
 MyApp.get "/login" do
+
+  @date = Date.new
+
   erb :"/users/user_login"
 end
 

@@ -1,5 +1,13 @@
 <center><h1> Add a New Rental </h1>  </center>
 
+<% if @error == true %>
+  <% @error_check.each do |error| %>
+   <font color="red"><b> <%= error %> </b></font>
+    <br>
+  <% end %>
+  <br>
+  <br>
+<% end %>
 
 
 <form  method="POST" action="/buildings/create/confirmation">
@@ -22,17 +30,18 @@
 <p> Landlord:&emsp;
 <input type="text" name="landlord" value="<%= params[:landlord] %>"></p>
 
-<p> Optional Image:&emsp;
-<input type="text" name="rental_image" value="<%= params[:rental_image] %>"></p>
-
-<p> Other Individuals on the Lease:&emsp;
-<input type="text" name="co_renter" value="<%= params[:co_renter] %>"></p>
-
 <p> Move-In Date:&emsp;
 <input type="date" name="move_in_date" value="<%= params[:move_in_date] %>"></p>
 
 <p> Move-Out Date:&emsp;
 <input type="date" name="move_out_date" value="<%= params[:move_out_date] %>"></p>
+
+<p> Other Individuals on the Lease:&emsp;
+<input type="text" name="co_renter" value="<%= params[:co_renter] %>"></p>
+
+
+<p> Optional Image:&emsp;
+<input type="text" name="rental_image" value="<%= params[:rental_image] %>"></p>
 
 <p><input type="submit" value="Create"></p>
 
