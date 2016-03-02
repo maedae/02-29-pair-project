@@ -1,0 +1,25 @@
+<center><h1> Update <%= @room.title %> </h1>  </center>
+
+<% if @error == true %>
+  <% @error_check.each do |error| %>
+   <font color="red"><b> <%= error %> </b></font>
+    <br>
+  <% end %>
+  <br>
+  <br>
+<% end %>
+
+
+<form  method="POST" action="/buildings/<%= @building.id %>/rooms/<%= @room.id %>/update/confirmation">
+
+<p>Room Location:&emsp;<input type="radio" name="update_location_radio" value="Indoors"> Indoors &emsp;&emsp;
+<input type="radio" name="update_location_radio" value="Outdoors"> Outdoors</p>
+
+<p> Room Type:&emsp;
+<input type="text" name="update_title" value="<%= @room.title %>"></p>
+
+<p>Image:&emsp;
+<input type="text" name="update_room_image" value="<%= @room.room_image %>"></p>
+
+<p><input type="submit" value="Update Room"></form></p>
+

@@ -50,3 +50,31 @@ MyApp.get "/buildings/:building_id/rooms/:room_id" do
   end
   erb :"/rooms/view_room"
 end 
+
+MyApp.get "/buildings/:building_id/rooms/:room_id/update" do
+  @current_user = User.find_by_id(session[:user_id])
+  @building = Building.find_by_id(params[:building_id])
+  @room = Room.find_by_id(params[:room_id])
+  erb :"/rooms/update_room"
+end 
+
+MyApp.post "/buildings/:building_id/rooms/:room_id/update/confirmation" do
+  @current_user = User.find_by_id(session[:user_id])
+  @building = Building.find_by_id(params[:building_id])
+  @room = Room.find_by_id(params[:room_id])
+  @room.title = params[:update_title]
+  @room.room_image = params[:update_room_image]
+  @room.location = params[:update_location_radio]
+  @room.building_id = @building.id
+  @room.updated_by = @current_user.id
+  @error_check = @room.create_room_check_valid_action
+  
+
+  if @error_check.empty? == false
+    @error = true
+    erb :"/rooms/update_room"
+  else
+    @room.save
+    redirect :"/buildings/#{@building.id}/rooms/#{@room.id}"
+  end
+end
