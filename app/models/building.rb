@@ -1,5 +1,8 @@
 class Building < ActiveRecord::Base
 
+  mount_uploader :building_image, MainUploader
+
+
   def find_rooms_for_building
     @arr_rooms = []
     if Room.where({"building_id" => self.id}) != nil

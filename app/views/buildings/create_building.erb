@@ -10,7 +10,7 @@
 <% end %>
 
 
-<form  method="POST" action="/buildings/create/confirmation">
+<form  method="POST" action="/buildings/create/confirmation" enctype="multipart/form-data">
 
 <p> Address:&emsp;
 <input type="text" name="address" value="<%= params[:address] %>"></p>
@@ -41,7 +41,7 @@
 
 
 <p> Optional Image:&emsp;
-<input type="text" name="rental_image" value="<%= params[:rental_image] %>"></p>
+<input type="file" name="rental_image"></p>
 
 <p><input type="submit" value="Create"></p>
 
