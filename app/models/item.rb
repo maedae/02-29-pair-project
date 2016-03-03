@@ -1,12 +1,27 @@
 class Item < ActiveRecord::Base
-  
+
+  #Method checks title for an empty string.
+  #
+  #Boolean is set to False if Empty, otherwise Method RETURNS True.
+  #RETURNS Boolean. 
+
   def check_create_item_title_is_valid
     return self.title != "" ? true : false
   end
 
+  #Method checks "condition" for nil value.
+  #
+  #Boolean is set to False if Empty, otherwise Method RETURNS True.
+  #RETURNS Boolean. 
+
   def check_create_item_condition_is_valid
     return self.condition != nil ? true : false
   end
+
+  #Method authenticates Title and Condition data 
+  #by calling Item methods.
+  #
+  #RETURNS an Array (message) containing the relevant errors.
 
   def create_item_check_valid_action
     title = check_create_item_title_is_valid
