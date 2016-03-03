@@ -1,0 +1,9 @@
+<center><h1>Delete <%= @room.title %></h1></center>
+Are you sure you want to delete this room from your rental at <%= @building.address %>?
+
+
+<form  method="GET" action="/buildings/<%= @building.id %>/rooms/<%= @room.id %>">
+<input type="submit" value="Cancel"> </form>
+
+<form  method="POST" action="/buildings/<%= @building.id %>/rooms/<%= @room.id %>/delete/confirmation">
+<input type="submit" value="Delete"> </form>

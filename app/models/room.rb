@@ -48,6 +48,30 @@ class Room < ActiveRecord::Base
   
   end
 
+  def find_and_delete_item_photos_for_room
+    if Item.where({"room_id" => self.id}) != nil
+      item_arr = []
+      items = Item.where({"room_id" => self.id})
+
+      items.each do |item|
+        item_arr = [] << item.id
+      end
+
+      item_arr. each do |item|
+        if Photo.where({"item_id" => item}) != nil
+          Photo.where({"item_id" => item}).delete_all
+        end
+      end
+
+    end
+  end
+
+  def find_and_delete_items_for_room
+    if Item.where({"room_id" => self.id}) != nil
+      Item.where({"room_id" => self.id}).delete_all
+    end
+  end
+
   def get_created_by_user_info_for_room
     return self.created_by == nil ?  nil : User.find_by_id(self.created_by)
   end

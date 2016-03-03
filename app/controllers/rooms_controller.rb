@@ -78,3 +78,20 @@ MyApp.post "/buildings/:building_id/rooms/:room_id/update/confirmation" do
     redirect :"/buildings/#{@building.id}/rooms/#{@room.id}"
   end
 end
+
+MyApp.get "/buildings/:building_id/rooms/:room_id/delete" do
+  @current_user = User.find_by_id(session[:user_id])
+  @building = Building.find_by_id(params[:building_id])
+  @room = Room.find_by_id(params[:room_id])
+  erb :"/rooms/delete_room"
+end 
+
+MyApp.post "/buildings/:building_id/rooms/:room_id/delete/confirmation" do
+  @current_user = User.find_by_id(session[:user_id])
+  @building = Building.find_by_id(params[:building_id])
+  @room = Room.find_by_id(params[:room_id])
+  @room.find_and_delete_item_photos_for_room
+  @room.find_and_delete_items_for_room
+  @room.delete
+  redirect :"/buildings/#{@building.id}"
+end 
