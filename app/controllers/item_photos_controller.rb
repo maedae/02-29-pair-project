@@ -54,6 +54,25 @@ MyApp.get "/buildings/:building_id/rooms/:room_id/features/:item_id/images/delet
   erb :"/items/delete_item_images"
 end
 
+MyApp.post "/buildings/:building_id/rooms/:room_id/features/:item_id/images/delete/confirmation" do
+  @current_user = User.find_by_id(session[:user_id])
+  @building = Building.find_by_id(params[:building_id])
+  @room = Room.find_by_id(params[:room_id])
+  @item = Item.find_by_id(params[:item_id])
+  @photos = @item.get_item_photos
+
+  if params[:delete_images] == nil
+    @no_photo_selection = true
+    erb :"/items/delete_item_images"
+  else
+    params[:delete_images].each do |id|
+      photo = Photo.find_by_id(id)
+      photo.delete
+    end
+    redirect :"/buildings/#{@building.id}/rooms/#{@room.id}/features/#{@item.id}"
+  end
+end
+
 MyApp.get "/buildings/:building_id/rooms/:room_id/features/:item_id/images/:photo_id" do
   @current_user = User.find_by_id(session[:user_id])
   @building = Building.find_by_id(params[:building_id])
