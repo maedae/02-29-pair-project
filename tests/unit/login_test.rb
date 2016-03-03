@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class UserTest < Minitest::Test
+class LoginTest < Minitest::Test
 
   def app
     MyApp

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class BuildingTest < Minitest::Test
+class ItemTest < Minitest::Test
 
   def app
     MyApp
@@ -10,21 +10,18 @@ class BuildingTest < Minitest::Test
     super
 
     @current_user = User.new
-    @current_user.id = 1
     @current_user.name = ""
     @current_user.email = "www.test@email.com"
     @current_user.password = ""
     @current_user.save
 
     @other_user = User.new
-    @other_user.id = 2
     @other_user.name = "bob"
     @other_user.email = ""
     @other_user.password = "password"
     @other_user.save
 
     @current_building = Building.new
-    @current_building.id = 1
     @current_building.address = ""
     @current_building.apt_no = ""
     @current_building.city = "Some Town"
@@ -35,12 +32,11 @@ class BuildingTest < Minitest::Test
     @current_building.move_in = ""
     @current_building.move_out = "2001-01-01"
     @current_building.locked = false
-    @current_building.created_by = 1
-    @current_building.updated_by = 1
+    @current_building.created_by = @current_user.id
+    @current_building.updated_by = @current_user.id
     @current_building.save
 
     @past_building = Building.new
-    @past_building.id = 2
     @past_building.address = "1414 14th"
     @past_building.apt_no = ""
     @past_building.city = "Some City"
@@ -51,37 +47,76 @@ class BuildingTest < Minitest::Test
     @past_building.move_in = "1999-01-01"
     @past_building.move_out = "2000-01-01"
     @past_building.locked = true
-    @past_building.created_by = 1
-    @past_building.updated_by = 1
+    @past_building.created_by = @other_user.id
+    @past_building.updated_by = @other_user.id
     @past_building.save
 
     @new_room = Room.new
-    @new_room.id = 1
     @new_room.title = "bedroom"
-    @new_room.building_id = 1
+    @new_room.building_id = @current_building.id
     @new_room.save
 
+    @other_room = Room.new
+    @other_room.title = ""
+    @other_room.building_id = @past_building.id
+    @other_room.save
+
+
+    @new_item = Item.new
+    @new_item.title = "broken window"
+    @new_item.room_id = @new_room.id
+    @new_item.description = "Window sucks"
+    @new_item.condition = 2
+    @new_item.created_by = @current_user.id
+    @new_item.updated_by = @current_user.id 
+    @new_item.save
+
+    @historic_item = Item.new
+    @historic_item.title = ""
+    @historic_item.room_id = @new_room.id
+    @historic_item.description = ""
+    @historic_item.condition = 5
+    @historic_item.created_by = @current_user.id
+    @historic_item.updated_by = @current_user.id
+    @historic_item.save
+
+    @other_item = Item.new
+    @other_item.title = "broken cat"
+    @other_item.room_id = @other_room.id
+    @other_item.description = ""
+    @other_item.condition = nil
+    @other_item.created_by = @current_user.id
+    @other_item.updated_by = @current_user.id
+    @other_item.save
+
+
     @renter_1 = Renter.new
-    @renter_1.id = 1
-    @renter_1.user_id = 1
-    @renter_1.building_id = 1
+    @renter_1.user_id = @current_user.id
+    @renter_1.building_id = @current_building.id
     @renter_1.save
 
     @renter_2 = Renter.new
-    @renter_2.id = 2
-    @renter_2.user_id = 2
-    @renter_2.building_id = 1
+    @renter_2.user_id = @other_user.id
+    @renter_2.building_id = @current_building.id
     @renter_2.save
 
     @renter_3 = Renter.new
-    @renter_3.id = 3
-    @renter_3.user_id = 1
-    @renter_3.building_id = 2
+    @renter_3.user_id = @current_user.id
+    @renter_3.building_id = @past_building.id
     @renter_3.save
 
-    
+    @photo_1 = Photo.new
+    @photo_1.item_id = @new_item.id
+    @photo_1.image = "iyvsrlubeablu"
 
-  end
+    @photo_2 = Photo.new
+    @photo_2.item_id = @other_item.id
+    @photo_2.image = "iyvsrlubeablu"
+
+
+
+   
+end
 
 ## BUILDING TESTS - START
 
@@ -100,4 +135,3 @@ class BuildingTest < Minitest::Test
 
  
 end
-  
