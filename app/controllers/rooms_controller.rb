@@ -28,7 +28,7 @@ MyApp.post "/buildings/:building_id/rooms/create/confirmation" do
     erb :"/rooms/create_room"
   else
     @room.save
-    redirect :"/buildings/#{@building.id}"
+    redirect :"/buildings/#{@building.id}/rooms/#{@room.id}/features/create"
   end
 end
 

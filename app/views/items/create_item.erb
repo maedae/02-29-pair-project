@@ -1,0 +1,33 @@
+<center><h1> Add a Feature to <%= @room.title %> </h1>  </center>
+
+<% if @error == true %>
+  <% @error_check.each do |error| %>
+   <font color="red"><b> <%= error %> </b></font>
+    <br>
+  <% end %>
+  <br>
+  <br>
+<% end %>
+
+
+<form  method="POST" action="/buildings/<%= @building.id %>/rooms/<%= @room.id %>/features/create/confirmation">
+
+<p>Feature Condition&emsp;<input type="radio" name="condition_radio" value="Excellent"> Excellent &emsp;&emsp;
+<input type="radio" name="condition_radio" value="Good"> Good&emsp;&emsp;
+<input type="radio" name="condition_radio" value="Fair"> Fair&emsp;&emsp;
+<input type="radio" name="condition_radio" value="Poor"> Poor&emsp;&emsp;
+<input type="radio" name="condition_radio" value="Damaged"> Damaged</p>
+
+<p> Title:&emsp;
+<input type="text" name="title" value="<%= params[:title] %>"></p>
+
+<p>Optional Description:<br>
+  <textarea name="item_description" cols="50" rows="8">
+  <%= params[:item_description] %>
+  </textarea> </p>
+
+<p><input type="submit" value="Add Feature"></form></p>
+
+<p> <form  method="GET" action="/buildings/<%= @building.id %>/rooms/<%=@room.id %>">
+<input type="submit" value="Finished Adding Features">
+</form>
