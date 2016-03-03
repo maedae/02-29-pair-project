@@ -8,45 +8,41 @@ class Room < ActiveRecord::Base
         @arr_items << i.id
       end
     end 
-    return @arr_items.empty? == false ? @arr_items : nil
+    return @arr_items.empty? ? nil : @arr_items
   end
 
-
-  def find_room_items_in_good_condition
+  def find_damaged_items_for_room
     items = find_items_for_room
-    conditions = ["Good", "Excellent"]
-    good_items = []
+    item_condition = [1, 2, 3]
+    @bad_items = []
 
     if items != nil
-      items.each do |i|
-        item = Item.find_by_id(i)
-        if conditions.include?(item)
-          good_items << item.id
+      items.each do |item|
+        one_item = Item.find_by_id(item)
+        if item_condition.include?(one_item.condition)
+          @bad_items << one_item
         end
       end
-    end
-
-    return good_items.empty? ? nil : good_items
-  
+    end 
+    return @bad_items.empty? ? nil : @bad_items
   end
 
-  def find_room_items_in_bad_condition
+  def find_good_items_for_room
     items = find_items_for_room
-    conditions = ["Damaged", "Poor", "Fair"]
-    bad_items = []
-
+    good_condition = [4, 5]
+    @good_items = []
     if items != nil
-      items.each do |i|
-        item = Item.find_by_id(i)
-        if conditions.include?(item)
-          bad_items << item.id
+      items.each do |item|
+        one_item = Item.find_by_id(item)
+        item_condition = one_item.condition
+        if good_condition.include?(item_condition) == true
+          @good_items << one_item
         end
       end
-    end
-
-    return bad_items.empty? ? nil : bad_items
-  
+    end 
+    return @good_items.empty? ? nil : @good_items
   end
+
 
   def find_and_delete_item_photos_for_room
     if Item.where({"room_id" => self.id}) != nil

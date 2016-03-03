@@ -38,14 +38,13 @@ MyApp.get "/buildings/:building_id/rooms/:room_id" do
   @room = Room.find_by_id(params[:room_id])
   @creator = @room.get_created_by_user_info_for_room
   @editor = @room.get_updated_by_user_info_for_room
-  @damaged_items = @room.find_room_items_in_bad_condition
-  @undamaged_items = @room.find_room_items_in_good_condition
-
+  @damaged_items = @room.find_damaged_items_for_room
+  @good_items = @room.find_good_items_for_room
   if @damaged_items == nil
-    @no_damages_error = true
+    @no_damaged_items_error = true
   end
 
-  if @undamaged_items == nil
+  if @good_items == nil
     @no_undamaged_items_error = true
   end
   erb :"/rooms/view_room"

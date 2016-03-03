@@ -11,25 +11,20 @@ Updated by:<%= @editor.name %> on <%= @room.updated_at.strftime("%m/%d/%Y") %>
 <br>
 <br>
 <h3> DAMAGED FEATURES </h3>
-<% if @no_damages_error == true %>
-  You do not have any damaged features in this room <br>
-
+<% if @no_damaged_items_error == true %>
+ There are currently no damaged features logged for this room. <br>
 <% else %>
-   <% @damaged_items.each do |item| %>
-      <% item = Item.find_by_id(item) %>
-      <%= item.title %> <br>
+   <%  @damaged_items.each do |items| %>
+      <%= items.title %> <br>
       <% end %>
 <% end %>
 
-
-<h3> FEATURES IN GOOD CONDITION </h3>
+<h3> UNDAMAGED FEATURES </h3>
 <% if @no_undamaged_items_error == true %>
-  You do not have any undamaged features in this room <br>
-
+ There are currently no features in good condition logged for this room. <br>
 <% else %>
-   <% @undamaged_items.each do |item| %>
-      <% item = Item.find_by_id(item) %>
-      <%= item.title %> <br>
+   <%  @good_items.each do |items| %>
+      <%= items.title %> <br>
       <% end %>
 <% end %>
 <br>
