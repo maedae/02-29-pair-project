@@ -1,4 +1,5 @@
 class Room < ActiveRecord::Base
+  mount_uploader :room_image, MainUploader
 
   def find_items_for_room
     @arr_items = []

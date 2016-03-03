@@ -1,12 +1,13 @@
-<center><h1> <%= @building.address %> </h1>  </center>
+<center><h1> <%= @building.address %> </h1></center>
 
-
+<br>
+<br>
 <%= "#{@building.address}. #{@building.apt_no}" %><br>
 <%= "#{@building.city}, #{@building.state}. #{@building.zip_code}" %>
 <br>
 <br>
 <%= @building.landlord_name %> <br>
-<%= @building.building_image %> <br>
+
 <%= @building.move_in %> <br>
 <%= @building.move_out %><br>
 Created by:<%= @creator.name %> on <%= @building.created_at.strftime("%m/%d/%Y") %><br>
@@ -14,6 +15,10 @@ Created by:<%= @creator.name %> on <%= @building.created_at.strftime("%m/%d/%Y")
 <% if @editor != nil %>
 Updated by:<%= @editor.name %> on <%= @building.updated_at.strftime("%m/%d/%Y") %>
 <% end %>
+<br>
+<br>
+<A HREF="/buildings/<%= @building.id%>/image">
+<IMG style="height: 250px;" SRC="<%= @building.building_image %>"></A>
 <br>
 <br>
 

@@ -20,6 +20,8 @@ MyApp.post "/buildings/:building_id/rooms/create/confirmation" do
   @room.location = params[:location_radio]
   @room.building_id = @building.id
   @room.created_by = @current_user.id
+  @room.room_image = params[:room_image]
+  
   @error_check = @room.create_room_check_valid_action
   
 
@@ -50,6 +52,13 @@ MyApp.get "/buildings/:building_id/rooms/:room_id" do
   erb :"/rooms/view_room"
 end 
 
+MyApp.get "/buildings/:building_id/rooms/:room_id/image" do
+  @current_user = User.find_by_id(session[:user_id])
+  @building = Building.find_by_id(params[:building_id])
+  @room = Room.find_by_id(params[:room_id])
+  erb :"/rooms/view_large_room_image"
+end
+
 MyApp.get "/buildings/:building_id/rooms/:room_id/update" do
   @current_user = User.find_by_id(session[:user_id])
   @building = Building.find_by_id(params[:building_id])
@@ -66,6 +75,11 @@ MyApp.post "/buildings/:building_id/rooms/:room_id/update/confirmation" do
   @room.location = params[:update_location_radio]
   @room.building_id = @building.id
   @room.updated_by = @current_user.id
+
+  if params[:room_image] != nil 
+   @room.room_image = params[:room_image]
+  end
+
   @error_check = @room.create_room_check_valid_action
   
 

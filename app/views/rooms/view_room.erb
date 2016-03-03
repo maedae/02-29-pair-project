@@ -10,6 +10,10 @@ Updated by:<%= @editor.name %> on <%= @room.updated_at.strftime("%m/%d/%Y") %>
 <% end %>
 <br>
 <br>
+<A HREF="/buildings/<%= @building.id%>/rooms/<%= @room.id %>/image">
+<IMG style="height: 250px;" SRC="<%= @room.room_image %>"></A>
+<br>
+<br>
 <h3> DAMAGED FEATURES </h3>
 <% if @no_damaged_items_error == true %>
  There are currently no damaged features logged for this room. <br>

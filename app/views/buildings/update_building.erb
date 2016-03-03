@@ -9,7 +9,7 @@
   <br>
 <% end %>
 
-<form  method="POST" action="/buildings/<%= @building.id %>/update/confirmation">
+<form  method="POST" action="/buildings/<%= @building.id %>/update/confirmation" enctype="multipart/form-data">
 
 <p> Address:&emsp;
 <input type="text" name="address" value="<%= @building.address %>"></p>
@@ -29,9 +29,6 @@
 <p> Landlord:&emsp;
 <input type="text" name="landlord" value="<%= @building.landlord_name %>"></p>
 
-<p> Optional Image:&emsp;
-<input type="text" name="rental_image" value="<%= @building.building_image %>"></p>
-
 <p> Other Individuals on the Lease (email):&emsp;
 <input type="text" name="co_renter" value="<%= params[:co_renter] %>"></p>
 
@@ -40,6 +37,9 @@
 
 <p> Move-Out Date:&emsp;
 <input type="date" name="move_out_date" value="<%= @building_move_out %>"></p>
+
+<p> Optional Image:&emsp;
+<input type="file" name="update_rental_image"></p>
 
 <p><input type="submit" value="Update"></p>
 

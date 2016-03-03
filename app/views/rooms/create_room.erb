@@ -10,7 +10,7 @@
 <% end %>
 
 
-<form  method="POST" action="/buildings/<%= @building.id %>/rooms/create/confirmation">
+<form  method="POST" action="/buildings/<%= @building.id %>/rooms/create/confirmation" enctype="multipart/form-data">
 
 <p>Room Location:&emsp;<input type="radio" name="location_radio" value="Indoors"> Indoors &emsp;&emsp;
 <input type="radio" name="location_radio" value="Outdoors"> Outdoors</p>
@@ -18,8 +18,8 @@
 <p> Room Type:&emsp;
 <input type="text" name="title" value="<%= params[:title] %>"></p>
 
-<p>Image:&emsp;
-<input type="text" name="room_image" value="<%= params[:room_image] %>"></p>
+<p>Optional Image:&emsp;
+<input type="file" name="room_image"></p>
 
 <p><input type="submit" value="Add Room"></form></p>
 
