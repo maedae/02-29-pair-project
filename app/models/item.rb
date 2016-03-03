@@ -26,7 +26,7 @@ class Item < ActiveRecord::Base
 
   def get_condition_tag
     value = ""
-    
+
     if self.condition == 5
       value = "Excellent"
     elsif self.condition == 4
@@ -42,12 +42,27 @@ class Item < ActiveRecord::Base
     return value
   end
 
+  def find_and_delete_item_photos
+    if Photo.where({"item_id" => self.id}) != nil
+      photos = Photo.where({"item_id" => self.id}).delete_all
+    end
+  end
+
+  def get_created_by_user_info_for_item
+    return self.created_by == nil ?  nil : User.find_by_id(self.created_by)
+  end
+
+  def get_updated_by_user_info_for_item
+    return self.updated_by == nil ?  nil : User.find_by_id(self.updated_by)
+  end
+
+
   def item_title_error
-    return "Please include a title when adding a feature."
+    return "Please include a title when adding or updating a feature."
   end
 
   def item_condition_error
-    return "Please set a condition when adding a new feature."
+    return "Please set a condition when adding or updating a feature."
   end
   
 end

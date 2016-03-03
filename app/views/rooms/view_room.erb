@@ -17,6 +17,8 @@ Updated by:<%= @editor.name %> on <%= @room.updated_at.strftime("%m/%d/%Y") %>
    <%  @damaged_items.each do |items| %>
       <a href="/buildings/<%= @building.id %>/rooms/<%= @room.id %>/features/<%= items.id %>"><%= items.title %></a> &emsp;&emsp;
       <%= items.get_condition_tag %>&emsp;&emsp;Images: <br>
+            <a href="/buildings/<%= @building.id %>/rooms/<%= @room.id %>/features/<%= items.id %>/update"> Update </a>&emsp;&emsp;
+      <a href="/buildings/<%= @building.id %>/rooms/<%= @room.id %>/features/<%= items.id %>/delete"> Delete </a> <br><br>
     <% end %>
 <% end %>
 
@@ -27,6 +29,8 @@ Updated by:<%= @editor.name %> on <%= @room.updated_at.strftime("%m/%d/%Y") %>
    <%  @good_items.each do |items| %>
       <a href="/buildings/<%= @building.id %>/rooms/<%= @room.id %>/features/<%= items.id %>"><%= items.title %></a> &emsp;&emsp;
       <%= items.get_condition_tag %>&emsp;&emsp;Images: <br>
+      <a href="/buildings/<%= @building.id %>/rooms/<%= @room.id %>/features/<%= items.id %>/update"> Update </a>&emsp;&emsp;
+      <a href="/buildings/<%= @building.id %>/rooms/<%= @room.id %>/features/<%= items.id %>/delete"> Delete </a> <br><br>
     <% end %>
 <% end %>
 <br>
@@ -35,6 +39,7 @@ Updated by:<%= @editor.name %> on <%= @room.updated_at.strftime("%m/%d/%Y") %>
 <br>
 <br>
        <a href="/buildings/<%= @building.id %>/rooms/<%= @room.id %>/update"> Edit Room Info </a>&emsp;&emsp;
-       <a href="/buildings/<%= @building.id %>/rooms/<%= @room.id %>/delete"> Delete Room </a>&emsp;&emsp;<br>
+       <a href="/buildings/<%= @building.id %>/rooms/<%= @room.id %>/delete"> Delete Room </a>&emsp;&emsp;
+       <a href="javascript:history.back()">Back to Rental Page</a><br>
 
 

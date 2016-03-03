@@ -1,0 +1,10 @@
+<center><h1>Delete <%= @item.title %></h1></center>
+Are you sure you want to remove this feature record from your account?<br>
+Doing so will delete all affiliated images and information regarding the feature.
+
+
+<form  method="GET" action="/buildings/<%= @building.id %>/rooms/<%= @room.id %>">
+<input type="submit" value="Cancel"> </form>
+
+<form  method="POST" action="/buildings/<%= @building.id %>/rooms/<%=@room.id %>/features/<%= @item.id %>/delete/confirmation">
+<input type="submit" value="Delete"> </form>

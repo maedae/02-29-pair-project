@@ -1,0 +1,17 @@
+<center><h1> <%= @item.title %> </h1>  </center>
+
+<%= @item.get_condition_tag %> <br>
+<%= @item.description %> <br>
+<br>
+<% if @creator != nil %>
+Created by:<%= @creator.name %> on <%= @room.created_at.strftime("%m/%d/%Y") %><br>
+<% end %>
+<% if @editor != nil %>
+Updated by:<%= @editor.name %> on <%= @room.updated_at.strftime("%m/%d/%Y") %>
+<% end %>
+<br>
+<br>
+<br>
+<a href="/buildings/<%= @building.id %>/rooms/<%= @room.id %>">Back to <%= @room.title %> Page</a><br>
+<a href="/buildings/<%= @building.id %>/rooms/<%= @room.id %>/features/<%= @item.id %>/update"> Update </a> <br>
+<a href="/buildings/<%= @building.id %>/rooms/<%= @room.id %>/features/<%= @item.id %>/delete"> Delete </a> 
