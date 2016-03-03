@@ -30,7 +30,7 @@ MyApp.post "/buildings/:building_id/rooms/:room_id/features/create/confirmation"
     erb :"/items/create_item"
   else
     @item.save
-    redirect :"/buildings/#{@building.id}/rooms/#{@room.id}/features/create/confirmation/success"
+    redirect :"/buildings/#{@building.id}/rooms/#{@room.id}/features/#{@item.id}/add_photo"
   end
 end
 
@@ -49,6 +49,12 @@ MyApp.get "/buildings/:building_id/rooms/:room_id/features/:item_id" do
   @item = Item.find_by_id(params[:item_id])
   @creator = @item.get_created_by_user_info_for_item
   @editor = @item.get_updated_by_user_info_for_item
+  @photos = @item.get_item_photos
+
+  if @photos == nil
+    @no_photos = true
+  end
+  
   erb :"/items/view_item"
 end 
 

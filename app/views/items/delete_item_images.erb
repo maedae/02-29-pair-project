@@ -1,0 +1,17 @@
+<center><h1> Delete Images for <%= @item.title %> </h1></center>
+
+<% if @no_photos_error == true %>
+  There are no images for this feature.
+
+<% else %>
+
+  <form action="/buildings/<%= @building.id%>/rooms/<%= @room.id %>/features/<%= @item.id %>/images/delete/confirmation">
+
+  <% @photos.each do |photo| %>
+  <input type="checkbox" name="delete_images[]" value=<%= photo.id %>>&emsp;&emsp;
+  <IMG style="height: 150px;" SRC="<%= photo.image %>"> <br><br><br><br>
+  <% end %>
+
+  <p><input type="submit" value="Delete Photos"></p></form>
+  
+<% end %>

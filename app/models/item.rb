@@ -56,6 +56,10 @@ class Item < ActiveRecord::Base
     return self.updated_by == nil ?  nil : User.find_by_id(self.updated_by)
   end
 
+  def get_item_photos
+    return Photo.where({"item_id" => self.id}) == nil ? nil : Photo.where({"item_id" => self.id})
+  end
+
 
   def item_title_error
     return "Please include a title when adding or updating a feature."

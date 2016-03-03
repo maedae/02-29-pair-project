@@ -1,0 +1,23 @@
+<center><h1>Add Photo for <%= @item.title %> </h1></center>
+
+
+<% if @error == true %>
+   <font color="red"><b> <%= @photo.no_image_error %> </b></font>
+  <br>
+  <br>
+<% end %>
+
+<% if @added_image == true %>
+   <font color="green"><b> Image Added!</b></font>
+  <br>
+  <br>
+<% end %>
+
+<form  method="POST" action="/buildings/<%= @building.id %>/rooms/<%= @room.id %>/features/<%= @item.id %>/add_photo/confirmation" enctype="multipart/form-data">
+<p>Image:&emsp;
+<input type="file" name="item_image"></p>
+
+<p><input type="submit" value="Add Image"></form></p>
+<p> <form  method="GET" action="/buildings/<%= @building.id %>/rooms/<%= @room.id %>/features/<%= @item.id %>">
+<input type="submit" value="Finished Adding Images">
+</form>
