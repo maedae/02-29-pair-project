@@ -1,0 +1,28 @@
+<center><h1> Update a Feature to <%= @room.title %> </h1>  </center>
+
+<% if @error == true %>
+  <% @error_check.each do |error| %>
+   <font color="red"><b> <%= error %> </b></font>
+    <br>
+  <% end %>
+  <br>
+  <br>
+<% end %>
+
+<form  method="POST" action="/buildings/<%= @building.id %>/rooms/<%= @room.id %>/features/<%= @item.id %>/update/confirmation">
+
+<p>Feature Condition&emsp;<input type="radio" name="update_condition_radio" value=5> Excellent &emsp;&emsp;
+<input type="radio" name="update_condition_radio" value=4> Good&emsp;&emsp;
+<input type="radio" name="update_condition_radio" value=3> Fair&emsp;&emsp;
+<input type="radio" name="update_condition_radio" value=2> Poor&emsp;&emsp;
+<input type="radio" name="update_condition_radio" value=1> Damaged</p>
+
+<p> Title:&emsp;
+<input type="text" name="title" value="<%= @item.title %>"></p>
+
+<p>Optional Description:<br>
+  <textarea name="update_item_description" cols="50" rows="8">
+  <%= @item.description %>
+  </textarea> </p>
+
+<p><input type="submit" value="Update Feature"></form></p>

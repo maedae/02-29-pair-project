@@ -16,7 +16,7 @@ Updated by:<%= @editor.name %> on <%= @room.updated_at.strftime("%m/%d/%Y") %>
 <% else %>
    <%  @damaged_items.each do |items| %>
       <a href="/buildings/<%= @building.id %>/rooms/<%= @room.id %>/features/<%= items.id %>"><%= items.title %></a> &emsp;&emsp;
-      <%=" Condition: #{items.get_condition_tag}" %>&emsp;&emsp;Images: <br>
+      <%= items.get_condition_tag %>&emsp;&emsp;Images: <br>
     <% end %>
 <% end %>
 
@@ -26,7 +26,7 @@ Updated by:<%= @editor.name %> on <%= @room.updated_at.strftime("%m/%d/%Y") %>
 <% else %>
    <%  @good_items.each do |items| %>
       <a href="/buildings/<%= @building.id %>/rooms/<%= @room.id %>/features/<%= items.id %>"><%= items.title %></a> &emsp;&emsp;
-      <%=" Condition: #{items.get_condition_tag}" %>&emsp;&emsp;Images: <br>
+      <%= items.get_condition_tag %>&emsp;&emsp;Images: <br>
     <% end %>
 <% end %>
 <br>
