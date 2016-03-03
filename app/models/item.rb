@@ -24,6 +24,24 @@ class Item < ActiveRecord::Base
     return message
   end
 
+  def get_condition_tag
+    value = ""
+    
+    if self.condition == 5
+      value = "Excellent"
+    elsif self.condition == 4
+      value = "Good"
+    elsif self.condition == 3
+      value = "Fair"
+   elsif self.condition == 2
+      value = "Poor"
+   elsif self.condition == 1
+      value = "Damaged"
+    end
+
+    return value
+  end
+
   def item_title_error
     return "Please include a title when adding a feature."
   end

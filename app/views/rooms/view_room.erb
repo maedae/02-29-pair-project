@@ -15,8 +15,9 @@ Updated by:<%= @editor.name %> on <%= @room.updated_at.strftime("%m/%d/%Y") %>
  There are currently no damaged features logged for this room. <br>
 <% else %>
    <%  @damaged_items.each do |items| %>
-      <%= items.title %> <br>
-      <% end %>
+      <a href="/buildings/<%= @building.id %>/rooms/<%= @room.id %>/features/<%= items.id %>"><%= items.title %></a> &emsp;&emsp;
+      <%=" Condition: #{items.get_condition_tag}" %>&emsp;&emsp;Images: <br>
+    <% end %>
 <% end %>
 
 <h3> UNDAMAGED FEATURES </h3>
@@ -24,8 +25,9 @@ Updated by:<%= @editor.name %> on <%= @room.updated_at.strftime("%m/%d/%Y") %>
  There are currently no features in good condition logged for this room. <br>
 <% else %>
    <%  @good_items.each do |items| %>
-      <%= items.title %> <br>
-      <% end %>
+      <a href="/buildings/<%= @building.id %>/rooms/<%= @room.id %>/features/<%= items.id %>"><%= items.title %></a> &emsp;&emsp;
+      <%=" Condition: #{items.get_condition_tag}" %>&emsp;&emsp;Images: <br>
+    <% end %>
 <% end %>
 <br>
 <br>

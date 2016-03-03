@@ -3,7 +3,7 @@ class Room < ActiveRecord::Base
   def find_items_for_room
     @arr_items = []
     if Item.where({"room_id" => self.id}) != nil
-      items = Item.where({"room_id" => self.id})
+      items = Item.where({"room_id" => self.id}).order('condition desc')
       items.each do |i|
         @arr_items << i.id
       end
@@ -12,31 +12,32 @@ class Room < ActiveRecord::Base
   end
 
   def find_damaged_items_for_room
-    items = find_items_for_room
-    item_condition = [1, 2, 3]
+    items = Item.where({"room_id" => self.id}) == nil ? nil : Item.where({"room_id" => self.id}).order('condition')
+    bad_condition = [1, 2, 3]
     @bad_items = []
 
     if items != nil
       items.each do |item|
-        one_item = Item.find_by_id(item)
-        if item_condition.include?(one_item.condition)
-          @bad_items << one_item
+        item_condition = item.condition
+        if bad_condition.include?(item_condition)
+          @bad_items << item
         end
       end
     end 
     return @bad_items.empty? ? nil : @bad_items
+
   end
 
   def find_good_items_for_room
-    items = find_items_for_room
+    items = Item.where({"room_id" => self.id}) == nil ? nil : Item.where({"room_id" => self.id}).order('condition desc')
     good_condition = [4, 5]
     @good_items = []
+
     if items != nil
       items.each do |item|
-        one_item = Item.find_by_id(item)
-        item_condition = one_item.condition
-        if good_condition.include?(item_condition) == true
-          @good_items << one_item
+        item_condition = item.condition
+        if good_condition.include?(item_condition)
+          @good_items << item
         end
       end
     end 
