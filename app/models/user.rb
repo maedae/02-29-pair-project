@@ -1,32 +1,41 @@
 class User < ActiveRecord::Base
-
-    # RETURNS boolean if email value String is not empty or not
+    
+  # Method  checks if email value String is empty or not
+  #
+  # RETURNS Boolean value 
   def check_create_user_email_is_valid
     return self.email != "" ? true : false
   end
 
-  # RETURNS boolean if name value String is not empty or not
+  # Method  checks if user name value String is empty or not
+  #
+  # RETURNS Boolean value
   def check_create_user_name_is_valid
     return self.name != "" ? true : false
   end
 
-  # RETURNS boolean if password value String is not empty or not
+  # Method  checks if user password value String is empty or not
+  #
+  # RETURNS Boolean value
   def check_create_user_password_is_valid
     return self.password != "" ? true : false
   end
 
-    # Method looks at boolean values from other methods to determine what sign up errors have appeared. 
-  #Calls other methods if values are false
+  # Method looks at boolean values from other methods to determine what sign
+  # up errors have appeared. 
+  # Calls other methods if values are false
   #
   # email  - calls on pre-existing method. stores Boolean return value
   # name - calls on pre-existing method. stores Boolean return value
   # password - calls on pre-existing method. stores Boolean return value
-  # message - empty Array. will store Strings via method return values when applicable
+  # message - empty Array. will store Strings via method return values when
+  # applicable
   # user_name_error - Method returns String value
   # user_email_error - Method returns String value
   # user_password_error -Method returns String value
   #
-  # Returns Array containing 3 - 0 String elements, depending on Method algorithm outcome
+  # Returns Array containing 3 - 0 String elements, depending on Method
+  # algorithm outcome
   def create_user_check_valid_action
     email = check_create_user_email_is_valid
     name =  check_create_user_name_is_valid
@@ -46,8 +55,8 @@ class User < ActiveRecord::Base
     end
     return message
   end
-
-  # Returns array of building_id column data from Renter collection 
+  
+  # RETURNS array of building_id column data from Renter collection 
   def find_user_renter_building_info
     arr_renters = []
     if Renter.where({"user_id" => self.id}) != nil
@@ -60,7 +69,8 @@ class User < ActiveRecord::Base
     return arr_renters.empty? ? nil : arr_renters
   end
 
-# RETURNS Array of ids column data from Buildig collection if building row is flagged as locked.
+  # RETURNS Array of ids column data from Buildig collection if building row
+  # is flagged as locked.
   def past_building_info_for_renter_based_on_user_id
     renters = find_user_renter_building_info
     past_buildings = []
@@ -78,7 +88,8 @@ class User < ActiveRecord::Base
   
   end
 
-  # RETURNS Array of ids column data from Buildig collection if building row is not flagged as locked.
+  # RETURNS Array of ids column data from Buildig collection if building row
+  # is not flagged as locked.
   def current_building_info_for_renter_based_on_user_id
     renters = find_user_renter_building_info
     open_buildings = []
