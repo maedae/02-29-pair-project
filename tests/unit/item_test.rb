@@ -118,20 +118,21 @@ class ItemTest < Minitest::Test
    
 end
 
-## BUILDING TESTS - START
+## ITEM TESTS - START
 
-  def test_find_rooms_for_building
-      assert_equal([1], @current_building.find_rooms_for_building)
-      assert_equal(nil, @past_building.find_rooms_for_building)
+  def test_get_condition_tag
+      assert_equal("Poor", @new_item.get_condition_tag)
+      assert_equal("Excellent", @historic_item.get_condition_tag)
+      assert_equal(nil, @other_item.get_condition_tag)
   end
 
-  def test_create_building_check_valid_action
-      assert_equal(["Please include an address.", "Please include a move-in date."], @current_building.create_building_check_valid_action)
-      assert_equal([], @past_building.create_building_check_valid_action)
+  def test_create_item_check_valid_action
+      assert_equal(["Please include a title when adding or updating a feature."], @historic_item.create_item_check_valid_action)
+      assert_equal(["Please set a condition when adding or updating a feature."], @other_item.create_item_check_valid_action)
+      assert_equal([], @new_item.create_item_check_valid_action)
   end
 
-
-  ## BUILDING TESTS - END
+  ## ITEM TESTS - END
 
  
 end

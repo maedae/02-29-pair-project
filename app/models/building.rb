@@ -102,12 +102,12 @@ class Building < ActiveRecord::Base
 
   # RETURNS a Boolean
   def check_create_building_move_in_is_valid
-    return self.move_in != nil ? true : false
+    return self.move_in != "" ? true : false
   end
 
   # RETURNS a Boolean
   def check_create_building_move_out_is_valid
-    return self.move_out != nil ? true : false
+    return self.move_out != "" ? true : false
   end
   # ______________________________________________
 

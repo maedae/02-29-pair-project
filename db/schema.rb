@@ -48,8 +48,6 @@ ActiveRecord::Schema.define(version: 0) do
     t.datetime "updated_at", null: false
     t.string   "item_id"
     t.string   "image"
-    t.integer  "created_by"
-    t.integer  "updated_by"
   end
 
   create_table "renters", force: :cascade do |t|
