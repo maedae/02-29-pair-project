@@ -51,21 +51,32 @@ MyApp.post "/buildings/create/confirmation" do
   @building.building_image = params[:rental_image]
   @building.move_in = params[:move_in_date]
   @building.move_out = params[:move_out_date]
-
   @building.created_by = @current_user.id
   @building.locked = false
   @error_check = @building.create_building_check_valid_action
+  @renter_check = @building.see_if_user_exists(params[:co_renter])
   
 
   if @error_check.empty? == false
-    @error = true
-    erb :"/buildings/create_building"
+      @error = true
+      erb :"/buildings/create_building"
+  elsif @renter_check == nil
+      @no_user_for_email_error = true
+      @no_user_for_email_error_message = "There is no registered user with that email."
+      erb :"/buildings/create_building"
   else
     @building.save
+
+    @co_renter = Renter.new
+    @co_renter.user_id = @renter_check.id
+    @co_renter.building_id = @building.id
+    @co_renter.save
+
     @renter = Renter.new
     @renter.user_id = @current_user.id
     @renter.building_id = @building.id
     @renter.save
+
   
     redirect :"/buildings/#{@building.id}/rooms/create"
   end

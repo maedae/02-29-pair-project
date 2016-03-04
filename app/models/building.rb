@@ -85,6 +85,11 @@ class Building < ActiveRecord::Base
     return self.move_out != nil ? true : false
   end
 
+
+  def see_if_user_exists(arr)
+    return User.find_by_email(arr) == nil ? nil : User.find_by_email(arr)
+  end
+
   # RETURNS String
   def address_error
     return "Please include an address."
