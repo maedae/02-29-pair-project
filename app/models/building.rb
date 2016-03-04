@@ -111,12 +111,22 @@ class Building < ActiveRecord::Base
   end
   # ______________________________________________
 
+  # Method checks to see if a user exists in the database based on arguement passed into method.
+  #
+  # arr = email
+  #
+  # Returns nil or Row in User table depending on outcome.
+  def see_if_user_exists(arr)
+    return User.find_by_email(arr) == nil ? nil : User.find_by_email(arr)
+  end
+
 
   # ______________________________________________
 
   # Methods below define the error messages used in
   # Method (create_building_check_valid_action)
   # 
+
   # RETURNS String
   def address_error
     return "Please include an address."

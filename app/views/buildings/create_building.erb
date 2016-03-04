@@ -9,6 +9,13 @@
   <br>
 <% end %>
 
+<% if @no_user_for_email_error == true %>
+   <font color="red"><b> <%= @no_user_for_email_error_message %> </b></font>
+  <br>
+  <br>
+<% end %>
+
+
 
 <form  method="POST" action="/buildings/create/confirmation" enctype="multipart/form-data">
 
@@ -36,7 +43,7 @@
 <p> Move-Out Date:&emsp;
 <input type="date" name="move_out_date" value="<%= params[:move_out_date] %>"></p>
 
-<p> Other Individuals on the Lease:&emsp;
+<p> Other Individual on the Lease (email):&emsp;
 <input type="text" name="co_renter" value="<%= params[:co_renter] %>"></p>
 
 

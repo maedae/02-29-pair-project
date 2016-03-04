@@ -1,5 +1,4 @@
 configure :production do
-
   CarrierWave.configure do |config|
     config.fog_credentials = {
       :provider               => 'AWS',                        # required
@@ -28,3 +27,4 @@ class MainUploader < CarrierWave::Uploader::Base
   #   %w(jpg jpeg gif png)
   # end
 end
+
