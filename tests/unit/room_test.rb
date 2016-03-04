@@ -54,11 +54,19 @@ class RoomTest < Minitest::Test
     @new_room = Room.new
     @new_room.title = "bedroom"
     @new_room.building_id = @current_building.id
+    @new_room.room_image = "fgjkhfdgkjfdg/skgjfdhgkdjg"
+    @new_room.location = "Indoor"
+    @new_room.created_by = @current_user.id
+    @new_room.updated_by = @other_user.id
     @new_room.save
 
     @other_room = Room.new
     @other_room.title = ""
     @other_room.building_id = @past_building.id
+    @other_room.room_image = ""
+    @other_room.location = nil
+    @other_room.created_by = @current_user.id
+    @other_room.updated_by = nil
     @other_room.save
 
 
@@ -126,38 +134,49 @@ end
 
 ## ROOM TESTS - START
 
-  def test_get_condition_tag
-      assert_equal("Poor", @new_item.get_condition_tag)
-      assert_equal("Excellent", @historic_item.get_condition_tag)
+  def test_find_damaged_items_for_room
+    assert_equal([@new_item], @new_room.find_damaged_items_for_room)
+    refute_equal([@historic_item], @new_room.find_damaged_items_for_room)
   end
 
-
-
-  def test_create_item_check_valid_action
-      assert_equal(["Please include a title when adding or updating a feature."], @historic_item.create_item_check_valid_action)
-      assert_equal(["Please set a condition when adding or updating a feature."], @other_item.create_item_check_valid_action)
-      assert_equal([], @new_item.create_item_check_valid_action)
+  def test_find_good_items_for_room
+    assert_equal([@historic_item], @new_room.find_good_items_for_room)
+    refute_equal([@new_item], @new_room.find_good_items_for_room)
   end
 
-  def test_find_and_delete_item_photos
-      @new_item.find_and_delete_item_photos
-      assert_equal([], Photo.where({"item_id" => @new_item.id}))
-      assert_includes(Photo.all, @photo_2)
-  end    
+  def test_find_and_delete_item_photos_for_room
+    @new_room.find_and_delete_item_photos_for_room
+    assert_equal([], Photo.where({ "item_id" => @new_item.id}))
+  end 
 
-  def test_get_created_by_user_info_for_item
-      assert_equal(@current_user, @new_item.get_created_by_user_info_for_item)
+  def test_find_and_delete_items_for_room
+    @new_room.find_and_delete_items_for_room
+    assert_equal([], Item.where({"room_id" => @new_room.id}))
+    refute_equal([@other_item], Item.where({"room_id" => @new_room.id}))
   end
 
-  def test_get_updated_by_user_info_for_item
-      assert_equal(@current_user, @new_item.get_updated_by_user_info_for_item)
+  def test_get_created_by_user_info_for_room
+    assert_equal(@current_user, @new_room.get_created_by_user_info_for_room)
   end
 
-  def test_get_item_photos
-      assert_equal([@photo_1, @photo_3], @new_item.get_item_photos)
-      refute_equal([@photo_2], @new_item.get_item_photos)
+  def test_get_updated_by_user_info_for_room
+    assert_equal(@other_user, @new_room.get_updated_by_user_info_for_room)
   end
 
+  def test_check_create_room_title_is_valid
+    assert_equal(true, @new_room.check_create_room_title_is_valid)
+     assert_equal(false, @other_room.check_create_room_title_is_valid)
+  end
+
+  def test_check_create_room_location_is_valid
+    assert_equal(true, @new_room.check_create_room_location_is_valid)
+    assert_equal(false, @other_room.check_create_room_location_is_valid)
+  end
+
+  def test_create_room_check_valid_action
+    assert_equal([], @new_room.create_room_check_valid_action)
+    assert_equal(["Please include a room type.", "Please set the location of your room."], @other_room.create_room_check_valid_action)
+  end
   ## ROOM TESTS - END
 
  

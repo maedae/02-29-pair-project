@@ -1,20 +1,6 @@
 class Room < ActiveRecord::Base
   mount_uploader :room_image, MainUploader
 
-  # Method initializes an Array and inserts IDs of Item objects that 
-  # associate with each room.
-  #
-  # RETURNS an Array of Item IDs.
-  def find_items_for_room
-    @arr_items = []
-    if Item.where({"room_id" => self.id}) != nil
-      items = Item.where({"room_id" => self.id}).order('condition desc')
-      items.each do |i|
-        @arr_items << i.id
-      end
-    end 
-    return @arr_items.empty? ? nil : @arr_items
-  end
 
   # Method searches all Items for objects associated with the Room, 
   # orders those Items by their "condition" value,
