@@ -44,6 +44,6 @@ Updated by:<%= @editor.name %> on <%= @room.updated_at.strftime("%m/%d/%Y") %>
 <br>
        <a href="/buildings/<%= @building.id %>/rooms/<%= @room.id %>/update"> Edit Room Info </a>&emsp;&emsp;
        <a href="/buildings/<%= @building.id %>/rooms/<%= @room.id %>/delete"> Delete Room </a>&emsp;&emsp;
-       <a href="javascript:history.back()">Back to Rental Page</a><br>
+       <a href="/buildings/<%= @building.id %>">Back to Rental Page</a><br>
 
 
