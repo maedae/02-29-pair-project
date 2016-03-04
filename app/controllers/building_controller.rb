@@ -60,18 +60,20 @@ MyApp.post "/buildings/create/confirmation" do
   if @error_check.empty? == false
       @error = true
       erb :"/buildings/create_building"
-  elsif @renter_check == nil
+  elsif @renter_check == nil && params[:co_renter] != "" && params[:co_renter] != nil
       @no_user_for_email_error = true
       @no_user_for_email_error_message = "There is no registered user with that email."
       erb :"/buildings/create_building"
   else
     @building.save
 
-    @co_renter = Renter.new
-    @co_renter.user_id = @renter_check.id
-    @co_renter.building_id = @building.id
-    @co_renter.save
-
+    if @renter_check != nil
+      @co_renter = Renter.new
+      @co_renter.user_id = @renter_check.id
+      @co_renter.building_id = @building.id
+      @co_renter.save
+    end
+    
     @renter = Renter.new
     @renter.user_id = @current_user.id
     @renter.building_id = @building.id
