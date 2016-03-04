@@ -1,6 +1,10 @@
 class Room < ActiveRecord::Base
   mount_uploader :room_image, MainUploader
 
+  # Method initializes an Array and inserts IDs of Item objects that 
+  # associate with each room.
+  #
+  # RETURNS an Array of Item IDs.
   def find_items_for_room
     @arr_items = []
     if Item.where({"room_id" => self.id}) != nil
@@ -12,6 +16,13 @@ class Room < ActiveRecord::Base
     return @arr_items.empty? ? nil : @arr_items
   end
 
+  # Method searches all Items for objects associated with the Room, 
+  # orders those Items by their "condition" value,
+  # and defines the "bad condition" parameter with an array of integers.
+  # Items whose condition are included in the array are pushed into an
+  # array ("@bad_items").
+  #
+  # RETURNS an Array of Item objects, if not empty (an empty array will return # a nil value).  
   def find_damaged_items_for_room
     items = Item.where({"room_id" => self.id}) == nil ? nil : Item.where({"room_id" => self.id}).order('condition')
     bad_condition = [1, 2, 3]
@@ -26,9 +37,15 @@ class Room < ActiveRecord::Base
       end
     end 
     return @bad_items.empty? ? nil : @bad_items
-
   end
 
+  # Method searches all Items for objects associated with the Room, 
+  # orders those Items by their "condition" value,
+  # and defines the "good condition" parameter with an array of integers.
+  # Items whose condition are included in the array are pushed into an
+  # array ("@good_items").
+  #
+  # RETURNS an Array of Item objects, if not empty (an empty array will return # a nil value).  
   def find_good_items_for_room
     items = Item.where({"room_id" => self.id}) == nil ? nil : Item.where({"room_id" => self.id}).order('condition desc')
     good_condition = [4, 5]
@@ -45,14 +62,19 @@ class Room < ActiveRecord::Base
     return @good_items.empty? ? nil : @good_items
   end
 
-
+  # Method searches all Items for objects associated with the Room,
+  # pushes them each into an array, then searches all Photos for 
+  # objects associated with each Item object. Method then deletes all
+  # associated Photo objects.
+  #
+  # RETURNS nil
   def find_and_delete_item_photos_for_room
     if Item.where({"room_id" => self.id}) != nil
       item_arr = []
       items = Item.where({"room_id" => self.id})
 
       items.each do |item|
-        item_arr = [] << item.id
+        item_arr << item.id
       end
 
       item_arr. each do |item|
@@ -64,16 +86,28 @@ class Room < ActiveRecord::Base
     end
   end
 
+  # Method searches all Items for objects associated with the Room,
+  # and Deletes all associated Item objects.
+  #
+  # RETURNS nil
   def find_and_delete_items_for_room
     if Item.where({"room_id" => self.id}) != nil
       Item.where({"room_id" => self.id}).delete_all
     end
   end
 
+  # Method RETURNS the User object associated with the "created_by"
+  # attribute of the Room.
+  #
+  # RETURNS a User object, or nil if "created_by" has no value
   def get_created_by_user_info_for_room
     return self.created_by == nil ?  nil : User.find_by_id(self.created_by)
   end
 
+  # Method RETURNS the User object associated with the "updated_by"
+  # attribute of the Room.
+  #
+  # RETURNS a User object, or nil if "updated_by" has no value
   def get_updated_by_user_info_for_room
     return self.updated_by == nil ?  nil : User.find_by_id(self.updated_by)
   end
@@ -88,6 +122,11 @@ class Room < ActiveRecord::Base
       return self.location != nil ? true : false
   end
 
+  # Method calls on pre-existing Methods to validate input data
+  # for "title" and "location". 
+  #
+  # RETURNS an Array of errors, which are Strings
+  # (created by Methods "room_title_error" and "room_location_error") 
   def create_room_check_valid_action
     title = check_create_room_title_is_valid
     location = check_create_room_location_is_valid
@@ -103,11 +142,13 @@ class Room < ActiveRecord::Base
 
     return message
   end
-
+  
+  # RETURNS an error in the form of a String
   def room_title_error
     return "Please include a room type."
   end
 
+  # RETURNS an error in the form of a String
   def room_location_error
     return "Please set the location of your room."
   end
