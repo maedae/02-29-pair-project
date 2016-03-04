@@ -65,6 +65,8 @@ class UserTest < Minitest::Test
 
   end
 
+  ## USER TESTS - START
+
   def test_find_user_renter_building_info
     assert_equal([1, 2], @current_user.find_user_renter_building_info)
     assert_equal([1], @other_user.find_user_renter_building_info)
@@ -79,6 +81,33 @@ class UserTest < Minitest::Test
     assert_equal([1], @current_user.current_building_info_for_renter_based_on_user_id)
     assert_equal([1], @other_user.current_building_info_for_renter_based_on_user_id)
   end
+
+  ## USER TESTS - END
+  
+
+  ## LOGIN TESTS - START
+
+  def test_check_create_user_email_is_valid
+      assert_equal(true, @current_user.check_create_user_email_is_valid)
+      assert_equal(false, @other_user.check_create_user_email_is_valid)
+  end
+
+  def test_check_create_user_name_is_valid
+      assert_equal(false, @current_user.check_create_user_name_is_valid)
+      assert_equal(true, @other_user.check_create_user_name_is_valid)
+  end
+
+  def test_check_create_user_password_is_valid
+      assert_equal(false, @current_user.check_create_user_password_is_valid)
+      assert_equal(true, @other_user.check_create_user_password_is_valid)
+  end  
+
+  def test_create_user_check_valid_action
+    assert_equal(["Please include your name.", "Please include a password."], @current_user.create_user_check_valid_action)
+    assert_equal(["Please include your email."], @other_user.create_user_check_valid_action)
+  end
+
+  ## LOGIN TESTS - END
 end
 
 

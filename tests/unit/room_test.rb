@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ItemTest < Minitest::Test
+class RoomTest < Minitest::Test
 
   def app
     MyApp
@@ -124,7 +124,7 @@ class ItemTest < Minitest::Test
    
 end
 
-## ITEM TESTS - START
+## ROOM TESTS - START
 
   def test_get_condition_tag
       assert_equal("Poor", @new_item.get_condition_tag)
@@ -158,7 +158,7 @@ end
       refute_equal([@photo_2], @new_item.get_item_photos)
   end
 
-  ## ITEM TESTS - END
+  ## ROOM TESTS - END
 
  
 end
