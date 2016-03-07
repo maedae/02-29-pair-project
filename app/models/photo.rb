@@ -1,3 +1,5 @@
+# Class is the instance of an image uploaded by the User, 
+# and each is associated with a Building, Room, or an Item.
 class Photo < ActiveRecord::Base
   mount_uploader :image, MainUploader
 
