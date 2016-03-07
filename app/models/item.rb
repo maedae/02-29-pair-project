@@ -48,11 +48,12 @@ class Item < ActiveRecord::Base
     end
   end
 
-  # Method gets integer value from the "condition" method called on "self".
-  # Method defines the variable "value" as the value in "@condition_hash"
-  # (created in the "setup") that corresponds with the integer (as a key).
+  # Method sets "@value" variable to "", and calls method to create a hash.
+  # @condition is set to the integer returned from "condition" method,
+  # and is used in "get_condition_string" method to find the value (a String)
+  # associated with the integer "@condition"
   #
-  # RETURNS the variable "value," which is a String.
+  # RETURNS the variable "@value," which is a String.
   def get_condition_tag
     @value = ""
     create_condition_hash
@@ -61,10 +62,18 @@ class Item < ActiveRecord::Base
     return @value
   end
 
+  # Method creates a hash with integers that correspond to Strings, 
+  # for the "get_condition_tag" method.
+  #
+  # Returns nil
   def create_condition_hash
     @condition_hash = {1 => "Damaged", 2 => "Poor", 3 => "Fair", 4 => "Good", 5 => "Excellent"}
   end
-
+  
+  # Method searches the hash from "create_condition_hash" for a value matching
+  # the key "@condition"
+  #
+  # Returns nil
   def get_condition_string
     @value = @condition_hash[@condition]
   end
