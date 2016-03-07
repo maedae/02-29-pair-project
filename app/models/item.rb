@@ -64,9 +64,10 @@ class Item < ActiveRecord::Base
   #
   # RETURNS nil
   def find_and_delete_item_photos
-    if Photo.where({"item_id" => self.id}) != nil
-      photos = Photo.where({"item_id" => self.id}).delete_all
-    end
+    photos = Photo.where({"item_id" => self.id})
+      if photos != nil
+        photos.delete_all
+      end
   end
 
   # Method inspects the object's "created_by" data, and finds the associated
