@@ -17,23 +17,6 @@ class Item < ActiveRecord::Base
     return self.condition != nil ? true : false
   end
 
-  
-  # def create_item_check_valid_action
-  #   title = check_create_item_title_is_valid
-  #   condition = check_create_item_condition_is_valid
-  #   message = []
-
-  #   if title == false
-  #     message << item_title_error
-  #   end
-
-  #   if condition == false
-  #     message << item_condition_error
-  #   end
-
-  #   return message
-  # end
-
   # Method authenticates Title and Condition data 
   # by calling condition_check and title_check methods.
   #
@@ -65,29 +48,26 @@ class Item < ActiveRecord::Base
     end
   end
 
-  # Method gets integer value from the user input for "condition"
-  # and translates that value into an adjective.
-  # Method then puts adjective into a variable (value).
+  # Method gets integer value from the "condition" method called on "self".
+  # Method defines the variable "value" as the value in "@condition_hash"
+  # (created in the "setup") that corresponds with the integer (as a key).
   #
-  # RETURNS variable "value," which contains a String.
+  # RETURNS the variable "value," which is a String.
   def get_condition_tag
-    value = ""
-    condition = self.condition
-    if condition == 5
-      value = "Excellent"
-    elsif condition == 4
-      value = "Good"
-    elsif condition == 3
-      value = "Fair"
-    elsif condition == 2
-      value = "Poor"
-    elsif condition == 1
-      value = "Damaged"
-    end
-
-    return value
+    @value = ""
+    create_condition_hash
+    @condition = self.condition
+    get_condition_string 
+    return @value
   end
 
+  def create_condition_hash
+    @condition_hash = {1 => "Damaged", 2 => "Poor", 3 => "Fair", 4 => "Good", 5 => "Excellent"}
+  end
+
+  def get_condition_string
+    @value = @condition_hash[@condition]
+  end
 
   # Method finds all photos of the object, and deletes them.
   #
