@@ -98,7 +98,10 @@ class Item < ActiveRecord::Base
   # RETURNS a collection of Photo objects, unless none found (then RETURNS
   # nil) 
   def get_item_photos
-    return Photo.where({"item_id" => self.id}) == nil ? nil : Photo.where({"item_id" => self.id})
+    item_photos = Photo.where({"item_id" => self.id})
+    if item_photos != nil
+      return item_photos
+    end
   end
 
 
