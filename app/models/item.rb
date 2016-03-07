@@ -43,16 +43,16 @@ class Item < ActiveRecord::Base
   # RETURNS variable "value," which contains a String.
   def get_condition_tag
     value = ""
-    
-    if self.condition == 5
+    condition = self.condition
+    if condition == 5
       value = "Excellent"
-    elsif self.condition == 4
+    elsif condition == 4
       value = "Good"
-    elsif self.condition == 3
+    elsif condition == 3
       value = "Fair"
-    elsif self.condition == 2
+    elsif condition == 2
       value = "Poor"
-    elsif self.condition == 1
+    elsif condition == 1
       value = "Damaged"
     end
 
