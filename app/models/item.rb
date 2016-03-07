@@ -75,7 +75,10 @@ class Item < ActiveRecord::Base
   #
   # RETURNS a User object
   def get_created_by_user_info_for_item
-    return self.created_by == nil ?  nil : User.find_by_id(self.created_by)
+    creator = User.find_by_id(self.created_by)
+    if creator != nil
+      return creator
+    end
   end
 
   # Method inspects the object's "updated_by" data, and finds the associated
@@ -84,7 +87,10 @@ class Item < ActiveRecord::Base
   # RETURNS a User object (unless no association found, in which case RETURNS
   # nil).
   def get_updated_by_user_info_for_item
-    return self.updated_by == nil ?  nil : User.find_by_id(self.updated_by)
+    updater = User.find_by_id(self.updated_by)
+    if updater != nil
+      return updater
+    end 
   end
 
   # Method finds photos of the object, and Returns them.
