@@ -17,24 +17,52 @@ class Item < ActiveRecord::Base
     return self.condition != nil ? true : false
   end
 
+  
+  # def create_item_check_valid_action
+  #   title = check_create_item_title_is_valid
+  #   condition = check_create_item_condition_is_valid
+  #   message = []
+
+  #   if title == false
+  #     message << item_title_error
+  #   end
+
+  #   if condition == false
+  #     message << item_condition_error
+  #   end
+
+  #   return message
+  # end
+
   # Method authenticates Title and Condition data 
-  # by calling Item methods.
+  # by calling condition_check and title_check methods.
   #
   # RETURNS an Array (message) containing the relevant errors.
   def create_item_check_valid_action
-    title = check_create_item_title_is_valid
-    condition = check_create_item_condition_is_valid
-    message = []
+    @message = []
+    condition_check
+    title_check
+    return @message
+  end
 
-    if title == false
-      message << item_title_error
+  # Method checks the condition for validity, and throws the proper error 
+  # message into the Array "message".
+  #
+  # RETURNS nil
+  def condition_check
+    if check_create_item_condition_is_valid == false
+      @message << item_condition_error
     end
+  end
 
-    if condition == false
-      message << item_condition_error
+  # Method checks the condition for validity, and throws the proper error 
+  # message into the Array "message".
+  #
+  # RETURNS nil
+  def title_check
+    if check_create_item_title_is_valid == false
+      @message << item_title_error
     end
-
-    return message
   end
 
   # Method gets integer value from the user input for "condition"
