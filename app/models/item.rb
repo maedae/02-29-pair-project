@@ -1,3 +1,4 @@
+## Class exists as an instance of a User's desire to examine something at a narrower focus than the Room level. A Building has Rooms, which have Items. 
 class Item < ActiveRecord::Base
 
   # Method checks title for an empty string.
