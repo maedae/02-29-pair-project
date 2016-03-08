@@ -39,6 +39,10 @@ MyApp.get "/create_account" do
   erb :"/users/create_user"
 end
 
+MyApp.get "/forgot_password" do
+  erb :"/users/forgot_user_password"
+end
+
 # handles form data sent from "/users/create"
 MyApp.post "/create_account/confirmation" do
   @new_user = User.new
