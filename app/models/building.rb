@@ -33,8 +33,12 @@ class Building < ActiveRecord::Base
       end
   end
 
+  def get_created_by_user_info
+    return User.find_by_id(self.created_by)
+  end
+
   def get_updated_by_user_info
-    return self.updated_by != nil ?  User.find_by_id(self.created_by) : nil
+    return self.updated_by != nil ?  User.find_by_id(self.updated_by) : nil
   end
 
   # Method conducts validation on input from form fields

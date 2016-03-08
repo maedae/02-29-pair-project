@@ -48,7 +48,7 @@ def setup
     @past_building.move_out = "2000-01-01"
     @past_building.locked = true
     @past_building.created_by = @other_user.id
-    @past_building.updated_by = @other_user.id
+    @past_building.updated_by = nil
     @past_building.save
 
     @abandoned_building = Building.new
@@ -164,6 +164,16 @@ end
   def test_check_if_building_has_other_renters
     @abandoned_building.check_if_building_has_other_renters
     assert_equal([@current_building, @past_building], Building.all)
+  end
+
+  def test_get_created_by_user_info
+    assert_equal(@current_user, @current_building.get_created_by_user_info)
+    assert_equal(@other_user, @past_building.get_created_by_user_info)
+  end
+
+  def test_get_updated_by_user_info
+    assert_equal(@current_user, @current_building.get_updated_by_user_info)
+    assert_equal(nil, @past_building.get_updated_by_user_info)
   end
 
   ## BUILDING TESTS - END
