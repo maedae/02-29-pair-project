@@ -146,11 +146,25 @@ end
       assert_equal([@other_room], @past_building.find_rooms_for_building)
   end
 
+  def find_room_id_array_for_room
+      assert_equal([@new_room.id], @current_building.find_room_id_array_for_room)
+      assert_equal([@other_room.id], @past_building.find_room_id_array_for_room)
+  end
+
   def test_create_building_check_valid_action
       assert_equal(["Please include an address.", "Please include a move-in date."], @current_building.create_building_check_valid_action)
       assert_equal([], @past_building.create_building_check_valid_action)
   end
 
+  def test_delete_renter_when_deleting_building
+    @past_building.delete_renter_when_deleting_building(@current_user.id)
+    assert_equal([], Renter.where({"building_id" => @past_building.id}))
+  end
+
+  def test_check_if_building_has_other_renters
+    @abandoned_building.check_if_building_has_other_renters
+    assert_equal([@current_building, @past_building], Building.all)
+  end
 
   ## BUILDING TESTS - END
 

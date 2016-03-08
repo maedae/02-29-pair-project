@@ -16,6 +16,11 @@ class Building < ActiveRecord::Base
   def find_room_id_array_for_room
     return Room.where({"building_id" => self.id}).pluck(:id)
   end
+
+  # Method Passes in building instance ID and user ID. Searches for the renter with those perimeters and deletes the renter.
+  def delete_renter_when_deleting_building(user_id)
+    Renter.where({"user_id" => user_id, "building_id" => self.id}).delete_all
+  end
   
   # Method searches for Renters by their Building IDs
   #
