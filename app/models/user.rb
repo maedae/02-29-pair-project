@@ -59,14 +59,15 @@ class User < ActiveRecord::Base
   # RETURNS array of building_id column data from Renter collection 
   def find_user_renter_building_info
     arr_renters = []
-    if Renter.where({"user_id" => self.id}) != nil
-      renters = Renter.where({"user_id" => self.id})
-      renters.each do |r|
-        arr_renters << r.building_id
+    renters = Renter.where({"user_id" => self.id})
+      if renters != nil
+        renters.each do |r|
+          arr_renters << r.building_id
+        end
+      else
+        return nil
       end
-    end 
-
-    return arr_renters.empty? ? nil : arr_renters
+    return arr_renters
   end
 
   # RETURNS Array of ids column data from Buildig collection if building row
