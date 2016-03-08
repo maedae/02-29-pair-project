@@ -89,7 +89,7 @@ class Building < ActiveRecord::Base
   # RETURNS a Boolean
   def check_create_building_zip_code_is_valid
     zip =  self.zip_code != "" ? true : false
-    if zip = false
+    if zip == false
       @error << "Please include a zip code."
     end
   end
