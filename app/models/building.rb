@@ -109,15 +109,5 @@ class Building < ActiveRecord::Base
       @error << "Please include a move-out date."
     end
   end
-  # ______________________________________________
-
-  # Method checks to see if a user exists in the database based on arguement passed into method.
-  #
-  # arr = email
-  #
-  # Returns nil or Row in User table depending on outcome.
-  def see_if_user_exists(arr)
-    return User.find_by_email(arr)
-  end
 
 end

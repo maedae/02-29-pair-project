@@ -3,7 +3,7 @@
 class Room < ActiveRecord::Base
   mount_uploader :room_image, MainUploader
 
-
+  #RETURNS Collection of Item instances.
   def find_items_for_room
     return Item.where({"room_id" => self.id})
   end
@@ -85,6 +85,5 @@ class Room < ActiveRecord::Base
     check_create_room_location_is_valid
     return @error
   end
-  
   
 end

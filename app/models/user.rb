@@ -106,6 +106,16 @@ class User < ActiveRecord::Base
     return open_buildings.empty? ? nil : open_buildings
   end
 
+    # Method checks to see if a user exists in the database based on arguement passed into method.
+  #
+  # arr = email
+  #
+  # Returns nil or Row in User table depending on outcome.
+  def see_if_user_exists(arr)
+    return User.find_by_email(arr)
+  end
+
+
   # RETURNS String
   def user_name_error
     return "Please include your name."

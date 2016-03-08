@@ -54,7 +54,7 @@ MyApp.post "/buildings/create/confirmation" do
   @building.created_by = @current_user.id
   @building.locked = false
   @error_check = @building.create_building_check_valid_action
-  @renter_check = @building.see_if_user_exists(params[:co_renter])
+  @renter_check = @current_user.see_if_user_exists(params[:co_renter])
   
 
   if @error_check.empty? == false
