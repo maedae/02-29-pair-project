@@ -28,7 +28,6 @@ Updated by:<%= @editor.name %> on <%= @building.updated_at.strftime("%m/%d/%Y") 
 
 <% else %>
    <% @rooms.each do |room| %>
-      <% room = Room.find_by_id(room) %>
       <%= room.title %> <br>
       <a href="/buildings/<%= @building.id %>/rooms/<%= room.id %>"> View </a>&emsp;&emsp;
       <a href="/buildings/<%= @building.id %>/rooms/<%= room.id %>/update"> Edit </a>&emsp;&emsp;

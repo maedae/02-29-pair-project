@@ -142,12 +142,8 @@ end
 ## BUILDING TESTS - START
 
   def test_find_rooms_for_building
-      assert_equal([@new_room.id], @current_building.find_rooms_for_building)
-      assert_equal([@other_room.id], @past_building.find_rooms_for_building)
-  end
-
-  def test_check_if_building_has_other_renters
-
+      assert_equal([@new_room], @current_building.find_rooms_for_building)
+      assert_equal([@other_room], @past_building.find_rooms_for_building)
   end
 
   def test_create_building_check_valid_action
