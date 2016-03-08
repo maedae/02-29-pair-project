@@ -8,14 +8,11 @@ class Building < ActiveRecord::Base
   # Returns an Array of Room IDs(@arr_rooms)
   # If the Array is empty, method RETURNS nil
   def find_rooms_for_building
-    @arr_rooms = []
-    if Room.where({"building_id" => self.id}) != nil
-      rooms = Room.where({"building_id" => self.id})
-      rooms.each do |r|
-        @arr_rooms << r.id
-      end
-    end 
-    return @arr_rooms.empty? == false ? @arr_rooms : nil
+    return Room.where({"building_id" => self.id})
+  end
+
+  def find_room_id_array_for_room
+    return Room.where({"building_id" => self.id}).pluck(:id)
   end
   
   # Method searches for Renters by their Building IDs
@@ -117,7 +114,7 @@ class Building < ActiveRecord::Base
   #
   # Returns nil or Row in User table depending on outcome.
   def see_if_user_exists(arr)
-    return User.find_by_email(arr) == nil ? nil : User.find_by_email(arr)
+    return User.find_by_email(arr)
   end
 
 
