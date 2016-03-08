@@ -39,7 +39,7 @@ class Room < ActiveRecord::Base
   #
   # RETURNS nil
   def find_and_delete_items_for_room
-     Item.where({"room_id" => self.id}).delete_all if @items_collection != nil
+     Item.where({"room_id" => self.id}).delete_all
   end
 
   # Method RETURNS the User object associated with the "created_by"

@@ -150,22 +150,12 @@ end
     refute_equal([@other_item], Item.where({"room_id" => @new_room.id}))
   end
 
-  def test_get_created_by_user_info_for_room
-    assert_equal(@current_user, @new_room.get_created_by_user_info_for_room)
+  def test_find_created_by_user_info_for_room
+    assert_equal(@current_user, @new_room.find_created_by_user_info_for_room)
   end
 
-  def test_get_updated_by_user_info_for_room
-    assert_equal(@other_user, @new_room.get_updated_by_user_info_for_room)
-  end
-
-  def test_check_create_room_title_is_valid
-    assert_equal(true, @new_room.check_create_room_title_is_valid)
-     assert_equal(false, @other_room.check_create_room_title_is_valid)
-  end
-
-  def test_check_create_room_location_is_valid
-    assert_equal(true, @new_room.check_create_room_location_is_valid)
-    assert_equal(false, @other_room.check_create_room_location_is_valid)
+  def test_find_updated_by_user_info_for_room
+    assert_equal(@other_user, @new_room.find_updated_by_user_info_for_room)
   end
 
   def test_room_error_check
