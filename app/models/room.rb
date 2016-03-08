@@ -1,6 +1,7 @@
+# Class is the instance of room data created by user.
+# each room has one building, and can have many items. 
 class Room < ActiveRecord::Base
   mount_uploader :room_image, MainUploader
-  include Errors
 
 
   def find_items_for_room
@@ -18,7 +19,7 @@ class Room < ActiveRecord::Base
   # and defines the "bad condition" parameter with an array of integers.
   # Items whose condition are included in the array are pushed into an
   # array ("@bad_items").
-  def find_find_damaged_items_for_room
+  def find_damaged_items_for_room
     return Item.where({"room_id" => self.id, "condition" => 1..3}).order('condition')
   end
 
@@ -31,21 +32,6 @@ class Room < ActiveRecord::Base
   # RETURNS an Array of Item objects, if not empty (an empty array will return # a nil value).  
   def find_good_items_for_room
     return Item.where({"room_id" => self.id, "condition" => 4..5}).order('condition desc')
-  end
-  # Method searches all Items for objects associated with the Room,
-  # pushes them each into an array, then searches all Photos for 
-  # objects associated with each Item object. Method then deletes all
-  # associated Photo objects.
-  #
-  # RETURNS nil
-  def find_and_delete_item_photos_for_room
-    item_id_array = find_items_id_array_for_room
-      item_id_array. each do |item|
-        item_photo = Photo.where({"item_id" => item}) 
-        if item_photo != nil
-          item_photo.delete_all
-        end
-      end
   end
 
   # Method searches all Items for objects associated with the Room,
@@ -60,12 +46,8 @@ class Room < ActiveRecord::Base
   # attribute of the Room.
   #
   # RETURNS a User object, or nil if "created_by" has no value
-  def set_created_by_user_info_for_room
-    @creator = User.find_by_id(self.created_by)
-  end
-
-  def get_created_by_user_info_for_room
-    return @creator
+  def find_created_by_user_info_for_room
+    return User.find_by_id(self.created_by)
   end
 
   # Method RETURNS the User object associated with the "updated_by"
@@ -73,11 +55,8 @@ class Room < ActiveRecord::Base
   #
   # RETURNS a User object, or nil if "updated_by" has no value
   def find_updated_by_user_info_for_room
-    @editor = User.find_by_id(self.updated_by)
-  end
-
-  def get_updated_by_user_info_for_room
-    return @editor
+    editor = self.updated_by
+    return editor != nil ? User.find_by_id(editor) : nil
   end
 
   # RETURNS Boolean if location value String is empty or not
@@ -100,9 +79,11 @@ class Room < ActiveRecord::Base
     end
   end
 
-  def error_check
+  def room_error_check
+    @error = []
     check_create_room_title_is_valid
     check_create_room_location_is_valid
+    return @error
   end
   
   

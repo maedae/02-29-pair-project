@@ -144,11 +144,6 @@ end
     refute_equal([@new_item], @new_room.find_good_items_for_room)
   end
 
-  def test_find_and_delete_item_photos_for_room
-    @new_room.find_and_delete_item_photos_for_room
-    assert_equal([], Photo.where({ "item_id" => @new_item.id}))
-  end 
-
   def test_find_and_delete_items_for_room
     @new_room.find_and_delete_items_for_room
     assert_equal([], Item.where({"room_id" => @new_room.id}))
@@ -173,9 +168,9 @@ end
     assert_equal(false, @other_room.check_create_room_location_is_valid)
   end
 
-  def test_create_room_check_valid_action
-    assert_equal([], @new_room.create_room_check_valid_action)
-    assert_equal(["Please include a room type.", "Please set the location of your room."], @other_room.create_room_check_valid_action)
+  def test_room_error_check
+    assert_equal([], @new_room.room_error_check)
+    assert_equal(["Please include a room type.", "Please set the location of your room."], @other_room.room_error_check)
   end
   ## ROOM TESTS - END
 

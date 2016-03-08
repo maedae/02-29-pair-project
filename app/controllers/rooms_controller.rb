@@ -22,11 +22,11 @@ MyApp.post "/buildings/:building_id/rooms/create/confirmation" do
   @room.created_by = @current_user.id
   @room.room_image = params[:room_image]
   
-  @error_check = @room.create_room_check_valid_action
+  @error_check = @room.room_error_check
   
 
   if @error_check.empty? == false
-    @error = true
+    @error_message = true
     erb :"/rooms/create_room"
   else
     @room.save
@@ -38,8 +38,8 @@ MyApp.get "/buildings/:building_id/rooms/:room_id" do
   @current_user = User.find_by_id(session[:user_id])
   @building = Building.find_by_id(params[:building_id])
   @room = Room.find_by_id(params[:room_id])
-  @creator = @room.get_created_by_user_info_for_room
-  @editor = @room.get_updated_by_user_info_for_room
+  @creator = @room.find_created_by_user_info_for_room
+  @editor = @room.find_updated_by_user_info_for_room
   @damaged_items = @room.find_damaged_items_for_room
   @good_items = @room.find_good_items_for_room
   if @damaged_items == nil
@@ -80,11 +80,11 @@ MyApp.post "/buildings/:building_id/rooms/:room_id/update/confirmation" do
    @room.room_image = params[:room_image]
   end
 
-  @error_check = @room.create_room_check_valid_action
+  @error_check = @room.room_error_check
   
 
   if @error_check.empty? == false
-    @error = true
+    @error_message = true
     erb :"/rooms/update_room"
   else
     @room.save
@@ -103,8 +103,15 @@ MyApp.post "/buildings/:building_id/rooms/:room_id/delete/confirmation" do
   @current_user = User.find_by_id(session[:user_id])
   @building = Building.find_by_id(params[:building_id])
   @room = Room.find_by_id(params[:room_id])
-  @room.find_and_delete_item_photos_for_room
-  @room.find_and_delete_items_for_room
-  @room.delete
-  redirect :"/buildings/#{@building.id}"
+  item_ids = @room.find_items_id_array_for_room
+
+  if item_ids != nil
+    @room.find_and_delete_item_photos_for_room(item_ids)
+    @room.find_and_delete_items_for_room
+    @room.delete
+    redirect :"/buildings/#{@building.id}"
+  else
+    @room.delete
+    redirect :"/buildings/#{@building.id}"
+  end
 end 
