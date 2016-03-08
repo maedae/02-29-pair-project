@@ -29,7 +29,7 @@ class Building < ActiveRecord::Base
   end
 
   def get_updated_by_user_info
-    return self.updated_by == nil ?  nil : User.find_by_id(self.created_by)
+    return self.updated_by != nil ?  User.find_by_id(self.created_by) : nil
   end
 
   # Method conducts validation on input from form fields
@@ -39,39 +39,22 @@ class Building < ActiveRecord::Base
   # into it when the validation fails.
   # Method RETURNS an Array (message).
   def create_building_check_valid_action
-    address = check_create_building_address_is_valid
-    city = check_create_building_city_is_valid
-    state = check_create_building_state_is_valid
-    zip = check_create_building_zip_code_is_valid
-    move_in = check_create_building_move_in_is_valid
-    move_out = check_create_building_move_out_is_valid
-    message = []
+    @error = []
+    find_create_and_update_address_errors
+    find_create_and_update_moving_date_errors
+    return @error
+  end
 
-    if address == false
-      message << address_error
-    end
+  def find_create_and_update_address_errors
+    check_create_building_address_is_valid
+    check_create_building_city_is_valid
+    check_create_building_state_is_valid
+    check_create_building_zip_code_is_valid
+  end
 
-    if city == false
-      message << city_error
-    end
-
-    if state == false
-      message << state_error
-    end
-
-    if zip == false
-      message << zip_error
-    end
-   
-    if move_in == false
-      message << move_in_error
-    end
-
-     if move_out == false
-      message << move_out_error
-    end
-    
-    return message
+  def find_create_and_update_moving_date_errors
+    check_create_building_move_in_is_valid
+    check_create_building_move_out_is_valid
   end
 
   # ____________________________________________________
@@ -81,32 +64,50 @@ class Building < ActiveRecord::Base
   #
   # Each RETURNS a corresponding Boolean value
   def check_create_building_address_is_valid
-    return self.address != "" ? true : false
+    address = self.address != "" ? true : false
+    if address == false
+      @error << "Please include an address."
+    end
   end
   
   # RETURNS a Boolean
   def check_create_building_city_is_valid
-    return self.city != "" ? true : false
+    city = self.city != "" ? true : false
+    if city == false
+      @error << "Please include a city."
+    end
   end
 
   # RETURNS a Boolean
   def check_create_building_state_is_valid
-    return self.state != "" ? true : false
+    state = self.state != "" ? true : false
+    if state == false
+      @error << "Please include a state."
+    end
   end
 
   # RETURNS a Boolean
   def check_create_building_zip_code_is_valid
-    return self.zip_code != "" ? true : false
+    zip =  self.zip_code != "" ? true : false
+    if zip = false
+      @error << "Please include a zip code."
+    end
   end
 
   # RETURNS a Boolean
   def check_create_building_move_in_is_valid
-    return self.move_in != "" ? true : false
+    move_in = self.move_in != "" ? true : false
+    if move_in == false
+      @error << "Please include a move-in date."
+    end
   end
 
   # RETURNS a Boolean
   def check_create_building_move_out_is_valid
-    return self.move_out != "" ? true : false
+    move_out = self.move_out != "" ? true : false
+    if move_out == false
+      @error << "Please include a move-out date."
+    end
   end
   # ______________________________________________
 
@@ -118,43 +119,5 @@ class Building < ActiveRecord::Base
   def see_if_user_exists(arr)
     return User.find_by_email(arr)
   end
-
-
-  # ______________________________________________
-
-  # Methods below define the error messages used in
-  # Method (create_building_check_valid_action)
-  # 
-
-  # RETURNS String
-  def address_error
-    return "Please include an address."
-  end
-
-  # RETURNS String
-  def city_error
-    return "Please include a city."
-  end
-  
-  # RETURNS String
-  def state_error
-    return "Please include a state."
-  end
-
-  # RETURNS String
-  def zip_error
-    return "Please include a zip code."
-  end
-
-  # RETURNS String
-  def move_in_error
-    return "Please include a move-in date."
-  end
-
-  # RETURNS String
-  def move_out_error
-    return "Please include a move-out date."
-  end
-  #______________________________________________
 
 end
