@@ -1,3 +1,5 @@
+# Class is the handles instances of Building Object created by the User, 
+# Each building can belong to multiple Renter Instances. Each building can have multiple Room instances.
 class Building < ActiveRecord::Base
 
   mount_uploader :building_image, MainUploader
