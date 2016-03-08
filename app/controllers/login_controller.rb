@@ -43,6 +43,19 @@ MyApp.get "/forgot_password" do
   erb :"/users/forgot_user_password"
 end
 
+MyApp.post "/forgot_password/confirmation" do
+  @lost_user = User.find_by_email(params[:email])
+  if @lost_user.nil?
+    @invalid_email = true
+    @error = "Invalid email."
+    erb :"/users/forgot_user_password"
+  else
+    @valid_email = true
+    @message = "Email Sent!"
+    erb :"/users/forgot_user_password"
+  end
+end
+
 # handles form data sent from "/users/create"
 MyApp.post "/create_account/confirmation" do
   @new_user = User.new
