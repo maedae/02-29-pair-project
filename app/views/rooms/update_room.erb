@@ -1,6 +1,6 @@
 <center><h1> Update <%= @room.title %> </h1>  </center>
 
-<% if @error == true %>
+<% if @error_message == true %>
   <% @error_check.each do |error| %>
    <font color="red"><b> <%= error %> </b></font>
     <br>
