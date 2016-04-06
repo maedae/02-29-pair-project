@@ -1,13 +1,6 @@
 <center><h1> Add a New Rental </h1>  </center>
 
-<% if @error == true %>
-  <% @error_check.each do |error| %>
-   <font color="red"><b> <%= error %> </b></font>
-    <br>
-  <% end %>
-  <br>
-  <br>
-<% end %>
+
 
 <% if @no_user_for_email_error == true %>
    <font color="red"><b> <%= @no_user_for_email_error_message %> </b></font>
@@ -18,6 +11,11 @@
 
 
 <form  method="POST" action="/buildings/create/confirmation" enctype="multipart/form-data">
+
+    <% @building.errors.full_messages.each do |error_message| %>
+      <%= error_message %> <br />
+    <% end %>
+  <br><br>
 
 <p> Address:&emsp;
 <input type="text" name="address" value="<%= params[:address] %>"></p>
@@ -42,10 +40,6 @@
 
 <p> Move-Out Date:&emsp;
 <input type="date" name="move_out_date" value="<%= params[:move_out_date] %>"></p>
-
-<p> Other Individual on the Lease (email):&emsp;
-<input type="text" name="co_renter" value="<%= params[:co_renter] %>"></p>
-
 
 <p> Optional Image:&emsp;
 <input type="file" name="rental_image"></p>

@@ -6,6 +6,7 @@ MyApp.before "/buildings*" do
 end
 
 MyApp.get "/buildings/create" do
+  @building = Building.new
   @current_user = User.find_by_id(session[:user_id])
   erb :"/buildings/create_building"
 end 
@@ -41,46 +42,18 @@ end
 
 MyApp.post "/buildings/create/confirmation" do
   @current_user = User.find_by_id(session[:user_id])
-  @building = Building.new
-  @building.address = params[:address]
-  @building.apt_no = params[:apt]
-  @building.city = params[:city]
-  @building.state = params[:state]
-  @building.zip_code = params[:zip]
-  @building.landlord_name = params[:landlord]
-  @building.building_image = params[:rental_image]
-  @building.move_in = params[:move_in_date]
-  @building.move_out = params[:move_out_date]
-  @building.created_by = @current_user.id
-  @building.locked = false
-  @error_check = @building.create_building_check_valid_action
-  @renter_check = @current_user.see_if_user_exists(params[:co_renter])
-  
+  @building = Building.new(:address => params[:address], :apt_no => params[:apt], :city => params[:city], :state => params[:state], :zip_code => params[:zip], :landlord_name => params[:landlord], :building_image => params[:rental_image], :move_in => params[:move_in_date], :move_out => params[:move_out_date], :created_by => @current_user.id, :locked => false)
 
-  if @error_check.empty? == false
-      @error = true
-      erb :"/buildings/create_building"
-  elsif @renter_check == nil && params[:co_renter] != "" && params[:co_renter] != nil
-      @no_user_for_email_error = true
-      @no_user_for_email_error_message = "There is no registered user with that email."
-      erb :"/buildings/create_building"
-  else
+  if @building.valid?
     @building.save
-
-    if @renter_check != nil
-      @co_renter = Renter.new
-      @co_renter.user_id = @renter_check.id
-      @co_renter.building_id = @building.id
-      @co_renter.save
-    end
     
     @renter = Renter.new
     @renter.user_id = @current_user.id
     @renter.building_id = @building.id
     @renter.save
-
-  
     redirect :"/buildings/#{@building.id}/rooms/create"
+  else
+    erb :"/buildings/create_building"
   end
 end
 

@@ -1,6 +1,9 @@
 # Class is the instance of room data created by user.
 # each room has one building, and can have many items. 
 class Room < ActiveRecord::Base
+  belongs_to :building
+  has_many :items
+  has_many :photos, through: :items
   mount_uploader :room_image, MainUploader
 
   #RETURNS Collection of Item instances.
