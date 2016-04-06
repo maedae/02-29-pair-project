@@ -1,28 +1,43 @@
-<center><h1> Add a Room to <%= @building.address %> </h1>  </center>
-
-<% if @error_message == true %>
-  <% @error_check.each do |error| %>
-   <font color="red"><b> <%= error %> </b></font>
-    <br>
-  <% end %>
-  <br>
-  <br>
-<% end %>
-
-
-<form  method="POST" action="/buildings/<%= @building.id %>/rooms/create/confirmation" enctype="multipart/form-data">
-
-<p>Room Location:&emsp;<input type="radio" name="location_radio" value="Indoors"> Indoors &emsp;&emsp;
-<input type="radio" name="location_radio" value="Outdoors"> Outdoors</p>
-
-<p> Room Type:&emsp;
-<input type="text" name="title" value="<%= params[:title] %>"></p>
-
-<p>Optional Image:&emsp;
-<input type="file" name="room_image"></p>
-
-<p><input type="submit" value="Add Room"></form></p>
-
-<p> <form  method="GET" action="/buildings/<%= @building.id %>">
-<input type="submit" value="Finished Adding Rooms">
-</form>
+<div class="block text-center w-full">
+   <div class="container-fluid"> 
+      <p class="m-t-md">
+        <span class="text-ribbon text-ribbon-danger bg-primary">
+        <span>
+          <% @room.errors.full_messages.each do |error_message| %>
+          <%= error_message + ".    " %> <% end %>
+        </span>
+        </span>
+      </p>
+      <h1 class="block-title">Add Room
+      </h1>
+      <form  class="form-inline" method="POST" action="/buildings/<%= @building.id %>/rooms/create/confirmation" enctype="multipart/form-data">
+        <h4 class="m-b-md">
+        <div>
+         <h4>
+        <div class="radio-inline custom-control custom-radio">
+          <label>
+            <input type="radio" id="radio1" name="location_radio" value="Indoors">
+            <span class="custom-control-indicator"></span>
+            Indoors
+          </label>
+        </div>
+        <div class="radio-inline custom-control custom-radio">
+          <label>
+            <input type="radio" id="radio2" name="location_radio" value="Outdoors">
+            <span class="custom-control-indicator"></span>
+            Outdoors
+          </label>
+        </div>
+        </h4>
+        </div>
+        <div>
+          <input class="form-control m-b" type="text" name="title" value="<%= params[:title] %>" placeholder="Room Name/Title">
+        </div>
+        <div>
+          <input type="file"  class="form-control m-b btn btn-sm btn-primary-outline" name="room_image">
+        </div>
+        <button class="btn btn-primary m-t" input type="submit" value="Add Room"> Add Room</button></form>
+    </form>
+    </h4>
+  </div>
+</div>

@@ -8,29 +8,19 @@ end
 MyApp.get "/buildings/:building_id/rooms/create" do
   @current_user = User.find_by_id(session[:user_id])
   @building = Building.find_by_id(params[:building_id])
+  @room = Room.new
   erb :"/rooms/create_room"
 end 
 
 MyApp.post "/buildings/:building_id/rooms/create/confirmation" do
   @current_user = User.find_by_id(session[:user_id])
   @building = Building.find_by_id(params[:building_id])
-  @room = Room.new
-  @room.title = params[:title]
-  @room.room_image = params[:room_image]
-  @room.location = params[:location_radio]
-  @room.building_id = @building.id
-  @room.created_by = @current_user.id
-  @room.room_image = params[:room_image]
-  
-  @error_check = @room.room_error_check
-  
-
-  if @error_check.empty? == false
-    @error_message = true
-    erb :"/rooms/create_room"
-  else
+  @room = Room.new(:title => params[:title], :location => params[:location_radio], :building_id => @building.id, :created_by => @current_user.id, :updated_by => @current_user.id, :room_image => params[:room_image])
+  if @room.valid?
     @room.save
     redirect :"/buildings/#{@building.id}/rooms/#{@room.id}/features/create"
+  else
+    erb :"/rooms/create_room"
   end
 end
 

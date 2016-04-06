@@ -4,6 +4,7 @@ class Room < ActiveRecord::Base
   belongs_to :building
   has_many :items
   has_many :photos, through: :items
+  validates :title, :location, presence: true
   mount_uploader :room_image, MainUploader
 
   #RETURNS Collection of Item instances.
@@ -60,33 +61,5 @@ class Room < ActiveRecord::Base
   def find_updated_by_user_info_for_room
     editor = self.updated_by
     return editor != nil ? User.find_by_id(editor) : nil
-  end
-
-  # RETURNS Boolean if location value String is empty or not
-  def check_create_room_location_is_valid
-    location = self.location != nil ? true : false
-    if location == false
-      @error << "Please set the location of your room."
-    end
-  end
-
-  # Method calls on pre-existing Methods to validate input data
-  # for "title" and "location". 
-  #
-  # RETURNS an Array of errors, which are Strings
-  # (created by Methods "room_title_error" and "room_location_error") 
-  def check_create_room_title_is_valid
-    title = self.title != "" ? true : false
-    if title == false
-      @error << "Please include a room type."
-    end
-  end
-
-  def room_error_check
-    @error = []
-    check_create_room_title_is_valid
-    check_create_room_location_is_valid
-    return @error
-  end
-  
+  end  
 end
