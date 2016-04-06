@@ -1,49 +1,42 @@
-<center><h1> Add a New Rental </h1>  </center>
+
+
+<div class="block text-center w-full">
+   <div class="container-fluid">
+      <p class="m-t-md">
+        <span class="text-ribbon text-ribbon-danger bg-primary"><span>
+      <% @building.errors.full_messages.each do |error_message| %>
+      <%= error_message + ".    " %> <% end %>
+    </span></span>
+    </p>
+    <h1 class="block-title">Add a New Rental
+    </h1>
+   <form class="form-inline" method="POST" action="/buildings/create/confirmation" enctype="multipart/form-data">
+    <h4 class="m-b-md">
+      <div>
+        <input class="form-control m-b" type="text" name="address"  placeholder="Address" value="<%= params[:address] %>">
+        <input class="form-control m-b" type="text" name="apt" placeholder="Apt/Suite No." value="<%= params[:apt] %>">
+      </div>
+
+      <div>
+        <input type="text" class="form-control m-b" name="city" placeholder="City" value="<%= params[:city] %>">
+        <input type="text" class="form-control m-b" name="state" placeholder="State" value="<%= params[:state] %>">
+        <input type="text" class="form-control m-b" name="zip" placeholder="ZIP Code" value="<%= params[:zip] %>">
+      </div>
+
+      <div>
+        <input type="text" class="form-control m-b" name="landlord" placeholder="Landlord's Name" value="<%= params[:landlord] %>">
+        <input placeholder="Move-In Date" class="textbox-n form-control m-b" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date" value="<%= params[:move_in_date] %>" name="move_in_date">
+        <input placeholder="Move-Out Date" class="textbox-n form-control m-b" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date" value="<%= params[:move_out_date] %>" name="move_out_date">
+      </div>
+
+      <div>
+        <input type="file" class="form-control m-b btn btn-sm btn-primary-outline" name="rental_image">
+
+      <div><button class="btn btn-primary m-t" input type="submit">Create</button>
+    </form>
+    </h4>
+  </div>
+</div>
 
 
 
-<% if @no_user_for_email_error == true %>
-   <font color="red"><b> <%= @no_user_for_email_error_message %> </b></font>
-  <br>
-  <br>
-<% end %>
-
-
-
-<form  method="POST" action="/buildings/create/confirmation" enctype="multipart/form-data">
-
-    <% @building.errors.full_messages.each do |error_message| %>
-      <%= error_message %> <br />
-    <% end %>
-  <br><br>
-
-<p> Address:&emsp;
-<input type="text" name="address" value="<%= params[:address] %>"></p>
-
-<p>Apt #:&emsp;
-<input type="text" name="apt" value="<%= params[:apt] %>"></p>
-
-<p>City:&emsp;
-<input type="text" name="city" value="<%= params[:city] %>"></p>
-
-<p>State:&emsp;
-<input type="text" name="state" value="<%= params[:state] %>"></p>
-
-<p>ZIP Code:&emsp;
-<input type="text" name="zip" value="<%= params[:zip] %>"></p>
-
-<p> Landlord:&emsp;
-<input type="text" name="landlord" value="<%= params[:landlord] %>"></p>
-
-<p> Move-In Date:&emsp;
-<input type="date" name="move_in_date" value="<%= params[:move_in_date] %>"></p>
-
-<p> Move-Out Date:&emsp;
-<input type="date" name="move_out_date" value="<%= params[:move_out_date] %>"></p>
-
-<p> Optional Image:&emsp;
-<input type="file" name="rental_image"></p>
-
-<p><input type="submit" value="Create"></p>
-
-</form>
