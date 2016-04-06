@@ -60,25 +60,15 @@ MyApp.post "/buildings/:building_id/rooms/:room_id/update/confirmation" do
   @current_user = User.find_by_id(session[:user_id])
   @building = Building.find_by_id(params[:building_id])
   @room = Room.find_by_id(params[:room_id])
-  @room.title = params[:update_title]
-  @room.room_image = params[:update_room_image]
-  @room.location = params[:update_location_radio]
-  @room.building_id = @building.id
-  @room.updated_by = @current_user.id
-
+  @room.update(:title => params[:update_title], :room_image => params[:update_room_image], :location => params[:update_location_radio], :building_id => @building.id, :updated_by => @current_user.id)
   if params[:room_image] != nil 
    @room.room_image = params[:room_image]
   end
-
-  @error_check = @room.room_error_check
-  
-
-  if @error_check.empty? == false
-    @error_message = true
-    erb :"/rooms/update_room"
-  else
-    @room.save
+  if @room.valid?
+     @room.save
     redirect :"/buildings/#{@building.id}/rooms/#{@room.id}"
+  else
+    erb :"/rooms/update_room"
   end
 end
 

@@ -1,25 +1,41 @@
-<center><h1> Update <%= @room.title %> </h1>  </center>
+<div class="block text-center w-full">
+   <div class="container-fluid"> 
+      <p class="m-t-md">
+        <span class="text-ribbon text-ribbon-danger bg-primary">
+        <span>
+          <% @room.errors.full_messages.each do |error_message| %>
+          <%= error_message + ".    " %> <% end %>
+        </span>
+        </span>
+      </p>
+      <h1 class="block-title">Update <%= @room.title %> 
+      </h1>
+      <form class="form-inline" method="POST" action="/buildings/<%= @building.id %>/rooms/<%= @room.id %>/update/confirmation" enctype="multipart/form-data">
+        <h4 class="m-b-md">
+        <div>
+         <h4>
+        <div class="radio-inline custom-control custom-radio">
+          <label>
+            <input type="radio" id="radio1" name="update_location_radio" value="Indoors">
+            <span class="custom-control-indicator"></span>
+            Indoors
+          </label>
+        </div>
+        <div class="radio-inline custom-control custom-radio">
+          <label>
+            <input type="radio" id="radio2" name="update_location_radio" value="Outdoors">
+            <span class="custom-control-indicator"></span>
+            Outdoors
+          </label>
+        </div>
+        </div>
+        </h4>
+        <div>
+          <input type="text" class="form-control m-b" name="update_title" value="<%= @room.title %>">
+        </div>
+        <div>
+          <input class="form-control m-b btn btn-sm btn-info-outline" type="file" name="update_room_image">
+        </div>
 
-<% if @error_message == true %>
-  <% @error_check.each do |error| %>
-   <font color="red"><b> <%= error %> </b></font>
-    <br>
-  <% end %>
-  <br>
-  <br>
-<% end %>
-
-
-<form  method="POST" action="/buildings/<%= @building.id %>/rooms/<%= @room.id %>/update/confirmation" enctype="multipart/form-data">
-
-<p>Room Location:&emsp;<input type="radio" name="update_location_radio" value="Indoors"> Indoors &emsp;&emsp;
-<input type="radio" name="update_location_radio" value="Outdoors"> Outdoors</p>
-
-<p> Room Type:&emsp;
-<input type="text" name="update_title" value="<%= @room.title %>"></p>
-
-<p>Optional Image:&emsp;
-<input type="file" name="update_room_image"></p>
-
-<p><input type="submit" value="Update Room"></form></p>
+<button class="btn btn-info m-t" input type="submit" value="Update Room"> Update</button></form>
 
