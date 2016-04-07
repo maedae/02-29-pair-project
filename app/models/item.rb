@@ -2,53 +2,8 @@
 class Item < ActiveRecord::Base
   belongs_to :room
   has_many :photos
+  validates :title, :condition, presence: true
 
-  # Method checks title for an empty string.
-  #
-  # Boolean is set to False if Empty, otherwise Method RETURNS True.
-  # RETURNS Boolean. 
-  def check_create_item_title_is_valid
-    return self.title != "" ? true : false
-  end
-
-  # Method checks "condition" for nil value.
-  #
-  # Boolean is set to False if Empty, otherwise Method RETURNS True.
-  # RETURNS Boolean. 
-  def check_create_item_condition_is_valid
-    return self.condition != nil ? true : false
-  end
-
-  # Method authenticates Title and Condition data 
-  # by calling condition_check and title_check methods.
-  #
-  # RETURNS an Array (message) containing the relevant errors.
-  def create_item_check_valid_action
-    @message = []
-    condition_check
-    title_check
-    return @message
-  end
-
-  # Method checks the condition for validity, and throws the proper error 
-  # message into the Array "message".
-  #
-  # RETURNS nil
-  def condition_check
-    if check_create_item_condition_is_valid == false
-      @message << item_condition_error
-    end
-  end
-
-  # Method checks the condition for validity, and throws the proper error 
-  # message into the Array "message".
-  #
-  # RETURNS nil
-  def title_check
-    if check_create_item_title_is_valid == false
-      @message << item_title_error
-    end
-  end
 
   # Method sets "@value" variable to "", and calls method to create a hash.
   # @condition is set to the integer returned from "condition" method,
@@ -124,20 +79,4 @@ class Item < ActiveRecord::Base
     end
   end
 
-
-  # Method gives an error message indicating title form field is invalid.
-  #
-  # RETURNS a String
-  def item_title_error
-    return "Please include a title when adding or updating a feature."
-  end
-
-
-  # Method gives an error message indicating condition form field is invalid.
-  #
-  # RETURNS a String
-  def item_condition_error
-    return "Please set a condition when adding or updating a feature."
-  end
-  
 end

@@ -1,28 +1,37 @@
-<center><h1> Update <%= @item.title %> Feature. </h1>  </center>
 
-<% if @error == true %>
-  <% @error_check.each do |error| %>
-   <font color="red"><b> <%= error %> </b></font>
-    <br>
-  <% end %>
-  <br>
-  <br>
-<% end %>
-
-<form  method="POST" action="/buildings/<%= @building.id %>/rooms/<%= @room.id %>/features/<%= @item.id %>/update/confirmation">
-
-<p>Feature Condition&emsp;<input type="radio" name="update_condition_radio" value=5> Excellent &emsp;&emsp;
-<input type="radio" name="update_condition_radio" value=4> Good&emsp;&emsp;
-<input type="radio" name="update_condition_radio" value=3> Fair&emsp;&emsp;
-<input type="radio" name="update_condition_radio" value=2> Poor&emsp;&emsp;
-<input type="radio" name="update_condition_radio" value=1> Damaged</p>
-
-<p> Title:&emsp;
-<input type="text" name="title" value="<%= @item.title %>"></p>
-
-<p>Optional Description:<br>
-  <textarea name="update_item_description" cols="50" rows="8">
-  <%= @item.description %>
-  </textarea> </p>
-
-<p><input type="submit" value="Update Feature"></form></p>
+<div class="block text-center w-full">
+   <div class="container-fluid">
+      <p class="m-t-md">
+        <span class="text-ribbon text-ribbon-danger bg-primary"><span>
+      <% @item.errors.full_messages.each do |error_message| %>
+      <%= error_message + ".    " %> <% end %>
+    </span></span>
+    </p>
+    <h1 class="block-title">Update <%= @item.title %> 
+    </h1>
+    <form  method="POST" class="form-inline" enctype="multipart/form-data" action="/buildings/<%= @building.id %>/rooms/<%= @room.id %>/features/<%= @item.id %>/update/confirmation">
+      <h4 class="m-b-md">
+      <div>
+        <input type="text" name="title" class="form-control m-b" placeholder="Brief Description" value="<%= @item.title %>">
+        <select  name="condition" class="custom-select form-control m-b btn btn-info dropdown-toggle">
+          <option value="<%= @item.condition %>"><%= @item.get_condition_tag%></option>
+          <option value=5>Excellent</option>
+          <option value=4>Good</option>
+          <option value=3>Fair</option>
+          <option value=2>Poor</option>
+          <option value=1>Damaged</option>
+        </select>
+      </div>
+      <div>
+        <textarea name="item_description" class="form-control m-b" cols="50" rows="8" placeholder="Descripition of damages/condition of feature goes here..."><%= @item.description %></textarea> 
+      </div>
+      <input type="file" class="form-control m-b btn btn-sm btn-primary-outline" name="images[]" value=<%= @photos %> multiple />
+      <div>
+      </div>
+      <div>
+        <button class="btn btn-info m-t" input type="submit" value="Add Feature">Update Feature</button>
+    </form>
+   <a href="/buildings/<%= @building.id %>/rooms/<%=@room.id %>" class="btn btn-info m-t" value="Add Feature">Back to Room</a></div>
+   </h4>
+  </div>
+</div>

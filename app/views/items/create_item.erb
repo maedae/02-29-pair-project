@@ -1,38 +1,37 @@
-<center><h1> Add a Feature to <%= @room.title %> </h1>  </center>
 
-<% if @added_item == true %>
-   <font color="green"><b> Feature Added!</b></font>
-  <br>
-  <br>
-<% end %>
-
-<% if @error == true %>
-  <% @error_check.each do |error| %>
-   <font color="red"><b> <%= error %> </b></font>
-    <br>
-  <% end %>
-  <br>
-  <br>
-<% end %>
-
-<form  method="POST" action="/buildings/<%= @building.id %>/rooms/<%= @room.id %>/features/create/confirmation">
-
-<p>Feature Condition&emsp;<input type="radio" name="condition_radio" value=5> Excellent &emsp;&emsp;
-<input type="radio" name="condition_radio" value=4> Good&emsp;&emsp;
-<input type="radio" name="condition_radio" value=3> Fair&emsp;&emsp;
-<input type="radio" name="condition_radio" value=2> Poor&emsp;&emsp;
-<input type="radio" name="condition_radio" value=1> Damaged</p>
-
-<p> Title:&emsp;
-<input type="text" name="title" value="<%= params[:title] %>"></p>
-
-<p>Optional Description:<br>
-  <textarea name="item_description" cols="50" rows="8">
-  <%= params[:item_description] %>
-  </textarea> </p>
-
-<p><input type="submit" value="Add Feature"></form></p>
-
-<p> <form  method="GET" action="/buildings/<%= @building.id %>/rooms/<%=@room.id %>">
-<input type="submit" value="Finished Adding Features">
-</form>
+<div class="block text-center w-full">
+   <div class="container-fluid">
+      <p class="m-t-md">
+        <span class="text-ribbon text-ribbon-danger bg-primary"><span>
+      <% @item.errors.full_messages.each do |error_message| %>
+      <%= error_message + ".    " %> <% end %>
+    </span></span>
+    </p>
+    <h1 class="block-title">Feature For <br /> <%= @room.title %> 
+    </h1>
+    <form  method="POST" class="form-inline" enctype="multipart/form-data" action="/buildings/<%= @building.id %>/rooms/<%= @room.id %>/features/create/confirmation">
+      <h4 class="m-b-md">
+      <div>
+        <input type="text" name="title" class="form-control m-b" placeholder="Brief Description" value="<%= params[:title] %>">
+        <select  name="condition" class="custom-select form-control m-b btn btn-primary dropdown-toggle">
+          <option value="">Select a condition...</option>
+          <option value=5>Excellent</option>
+          <option value=4>Good</option>
+          <option value=3>Fair</option>
+          <option value=2>Poor</option>
+          <option value=1>Damaged</option>
+        </select>
+      </div>
+      <div>
+        <textarea name="item_description" class="form-control m-b" cols="50" rows="8" placeholder="Descripition of damages/condition of feature goes here..."><%= params[:item_description] %></textarea> 
+      </div>
+      <input type="file" class="form-control m-b btn btn-sm btn-primary-outline"name="images[]" multiple />
+      <div>
+      </div>
+      <div>
+        <button class="btn btn-primary m-t" input type="submit" value="Add Feature">Create Feature</button>
+    </form>
+   <a href="/buildings/<%= @building.id %>/rooms/<%=@room.id %>" class="btn btn-primary m-t" value="Add Feature">Back to Room</a></div>
+   </h4>
+  </div>
+</div>
