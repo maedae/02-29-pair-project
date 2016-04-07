@@ -1,46 +1,42 @@
-<center><h1> Update Rental </h1>  </center>
+<div class="block text-center w-full">
+   <div class="container-fluid">
+      <p class="m-t-md">
+        <span class="text-ribbon text-ribbon-danger bg-primary"><span>
+      <% @building.errors.full_messages.each do |error_message| %>
+      <%= error_message + ".    " %> <% end %>
+    </span></span>
+    </p>
+    <h1 class="block-title">
+      Update <%= @building.address %>
+    </h1>
+    <form  class="form-inline" method="POST" action="/buildings/<%= @building.id %>/update/confirmation" enctype="multipart/form-data">
+    <h4 class="m-b-md">
+    
+    <div>
+      <input type="text" class="form-control m-b" name="address" value="<%= @building.address %>">
+      <input type="text" class="form-control m-b" name="apt" value="<%= @building.apt_no %>">
+    </div>
+   
+    <div>
+      <input type="text" class="form-control m-b" name="city" value="<%= @building.city %>">
+      <input type="text" class="form-control m-b" name="state" value="<%= @building.state %>">
+      <input type="text" class="form-control m-b" name="zip" value="<%= @building.zip_code %>">
+    </div>
 
-<% if @error == true %>
-  <% @error_check.each do |error| %>
-   <font color="red"><b> <%= error %> </b></font>
-    <br>
-  <% end %>
-  <br>
-  <br>
-<% end %>
+    <div>
+      <input type="text" class="form-control m-b" name="landlord" value="<%= @building.landlord_name %>">
+      <input placeholder="Move-In Date" class="textbox-n form-control m-b" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date" value="<%= @building.move_in %>" name="move_in_date">
+      <input placeholder="Move-Out Date" class="textbox-n form-control m-b" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date" value="<%= @building.move_out %>" name="move_out_date">
+    </div>
 
-<form  method="POST" action="/buildings/<%= @building.id %>/update/confirmation" enctype="multipart/form-data">
+    <div>
+      <input type="file" class="form-control m-b btn btn-sm btn-info-outline" name="update_rental_image">
+    </div>
 
-<p> Address:&emsp;
-<input type="text" name="address" value="<%= @building.address %>"></p>
-
-<p>Apt #:&emsp;
-<input type="text" name="apt" value="<%= @building.apt_no %>"></p>
-
-<p>City:&emsp;
-<input type="text" name="city" value="<%= @building.city %>"></p>
-
-<p>State:&emsp;
-<input type="text" name="state" value="<%= @building.state %>"></p>
-
-<p>ZIP Code:&emsp;
-<input type="text" name="zip" value="<%= @building.zip_code %>"></p>
-
-<p> Landlord:&emsp;
-<input type="text" name="landlord" value="<%= @building.landlord_name %>"></p>
-
-<p> Other Individuals on the Lease (email):&emsp;
-<input type="text" name="co_renter" value="<%= params[:co_renter] %>"></p>
-
-<p> Move-In Date:&emsp;
-<input type="date" name="move_in_date" value="<%= @building.move_in %>"></p>
-
-<p> Move-Out Date:&emsp;
-<input type="date" name="move_out_date" value="<%= @building_move_out %>"></p>
-
-<p> Optional Image:&emsp;
-<input type="file" name="update_rental_image"></p>
-
-<p><input type="submit" value="Update"></p>
-
-</form>
+    <div>
+      <button class="btn btn-info m-t" input type="submit" value="Update">Update</button>
+    </div>
+    </form>
+    </h4>
+  </div>
+</div>

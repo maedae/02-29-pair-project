@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-    
+  has_many :buildings, through: :renters
   # Method  checks if email value String is empty or not
   #
   # RETURNS Boolean value 

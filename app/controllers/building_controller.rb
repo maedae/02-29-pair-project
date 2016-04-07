@@ -66,30 +66,16 @@ end
 MyApp.post "/buildings/:building_id/update/confirmation" do
   @current_user = User.find_by_id(session[:user_id])
   @building = Building.find_by_id(params[:building_id])
-  @building.address = params[:address]
-  @building.apt_no = params[:apt]
-  @building.city = params[:city]
-  @building.state = params[:state]
-  @building.zip_code = params[:zip]
-  @building.landlord_name = params[:landlord]
-
+  @building.update(:address => params[:address], :apt_no => params[:apt], :city => params[:city], :state => params[:state], :zip_code => params[:zip], :landlord_name => params[:landlord], :updated_by => @current_user.id, :move_in => params[:move_in_date], :move_out => params[:move_out_date])
+  
   if params[:update_rental_image] != ""
    @building.building_image = params[:update_rental_image]
  end
-
-  @building.move_in = params[:move_in_date]
-  @building.move_out = params[:move_out_date]
-  @building.updated_by = @current_user.id
-  @building.locked = false
-  @error_check = @building.create_building_check_valid_action
-
-  if @error_check.empty? == false
-    @error = true
-    erb :"/buildings/update_building"
-  else
+  if @building.valid?
     @building.save
-
     redirect :"/buildings/#{@building.id}."
+  else
+    erb :"/buildings/update_building"
   end
 end
 
