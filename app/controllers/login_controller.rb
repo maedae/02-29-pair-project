@@ -5,15 +5,10 @@ end
 MyApp.get "/login" do
 
   @date = Date.new
-
   erb :"/users/user_login"
 end
 
 MyApp.post "/login/confirmation" do
-  if User.exists?(:email => params[:email]) == false
-    @invalid_email = true
-    erb :"/users/user_login"
-  else
   @current_user = User.find_by_email(params[:email])
     if @current_user.password != params[:password]
       @invalid_password = true
@@ -21,7 +16,6 @@ MyApp.post "/login/confirmation" do
     else
       session["user_id"] = @current_user.id
       redirect :"/home"
-    end
   end
 end
 

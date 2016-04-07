@@ -1,10 +1,5 @@
 <center><h1>Sign In</h1></center>
 
-<% if @invalid_email == true %>
-  <font color="red"><b> Invalid email. </b></font>
-  <br>
-  <br>
-<% end %> 
 
 <% if @invalid_password == true %>
   <font color="red"><b>Invalid password.</b></font>
@@ -12,8 +7,8 @@
 
 <form  method="POST" action="/login/confirmation">
 
-<input class="form-control m-b" placeholder="email address" value="<%= params[:email] %>">
-<input class="form-control m-b" type="password" placeholder="Create a Password">
+<input class="form-control m-b" placeholder="email address"  name="email" value="<%= params[:email] %>">
+<input class="form-control m-b" type="password" name="password" placeholder="Create a Password">
 <p><input type="submit" value="Login"></p>
 
 <p> <a href="/forgot_password"> Forgot Password </a></p>
