@@ -1,24 +1,30 @@
-<center> <h1> Welcome,  <%= @current_user.name %>!</h1></center>
-<a href="buildings/create"> Add New Rental </a>
-
-
-<h3> Current Rentals </h3>
-<% if @no_current_building_error == true %>
-  You do not have any active rentals available. Consider <a href="buildings/create"> adding another. </a>
-<% else %>
-   <% @current_building.each do |building| %>
+<div class="nav_side_bar">
+<h3><%= @current_user.name %>'s
+<br>
+Dashboard
+</h3>
+<ul class="nav nav-bordered nav-stacked">
+<li class="nav-divider"></li>
+<li class="nav-header">User</li>
+  <li><a href="#">Sign Out</a></li>
+  <li><a href="/users/update/authenticate">Update</a></li>
+  <li><a href="/users/delete/authenticate">Delete</a></li>
+<li class="nav-divider"></li>
+    <% if @no_current_building_error == true %>
+      <li class="nav-header">Rentals</li>
+      <li>You do not have any active rentals available. Consider <br><a href="buildings/create"> adding another. </a>
+    <% else %>
+      <li class="nav-header">Rentals</li>
+      <% @current_building.each do |building| %>
       <% building = Building.find_by_id(building) %>
-      <%= building.address %>&emsp;&emsp;
-       <a href="/buildings/<%= building.id %>"> View </a>&emsp;&emsp;
-       <a href="/buildings/<%= building.id %>/update"> Edit </a>&emsp;&emsp;
-       <a href="/buildings/<%= building.id %>/delete"> Delete </a>&emsp;&emsp;<br>
+      <li><a href="/buildings/<%= building.id %>"><%= building.address %></a></li>
+      <li><a href="/buildings/<%= building.id %>/update">Edit&emsp;</a><a href="/buildings/<%= building.id %>/delete"> Delete</a></li>
       <% end %>
-<% end %>
+    <% end %>
+    <li><a href="/buildings/history"> Previous Rentals </a> </li>
+  </li>
 
-
-<h3><a href="/buildings/history"> Previous Rentals </a> </h3>
-
-<br>
-<br>
-<a href="/users/update/authenticate"> Update User </a> <br>
-<a href="/users/delete/authenticate"> Delete User </a> <br>
+  <li class="nav-divider"></li>
+</div>
+  
+</ul>
