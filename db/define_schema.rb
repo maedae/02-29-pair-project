@@ -42,6 +42,9 @@ DB.define_column("items", "room_id", "integer")
 DB.define_column("items", "created_by", "integer")
 DB.define_column("items", "updated_by", "integer") 
 
+DB.define_table("conditions")
+DB.define_column("conditions", "title", "string")
+
 DB.define_table("photos")
 DB.define_column("photos", "item_id", "string")
 DB.define_column("photos", "image", "string")

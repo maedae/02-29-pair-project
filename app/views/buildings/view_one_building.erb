@@ -1,44 +1,67 @@
-<center><h1> <%= @building.address %> </h1></center>
+<div class="p-y-lg p-x" style="background: url(<%= @building.building_image %>) top center; background-size: cover">
+  <nav class="navbar navbar-transparent m-b-0">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#building-navbar-collapse-com">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">
+          <h4 class="text-uppercase m-y-0">
+          <%= "#{@building.address}. #{@building.apt_no}" %><br>
+          <%= "#{@building.city}, #{@building.state}. #{@building.zip_code}" %>
+        </h4>
+        </a>
+      </div>
+      <div class="navbar-collapse collapse" id="building-navbar-collapse-com">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="/buildings/<%= @building.id %>/rooms/create">Add Room</a></li>
+          <li><a href="/buildings/<%= @building.id %>/update">Edit</a></li>
+          <li><a href="/buildings/<%= @building.id %>/delete">Delete</a></li>
+          <li><a href="#" class="buildingSelector hideInfo" value="<%= @building.id %>"> Show </a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>
+<% @rooms.each do |room| %>
+  <div class="p-y-lg p-x" style="background: url(<%= room.room_image %>) top center; background-size: cover">
+    <nav class="navbar navbar-transparent m-b-0">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#room<%= room.id %>-navbar-collapse-com">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/buildings/<%= @building.id %>/rooms/<%= room.id %>">
+            <h4 class="text-uppercase m-y-0"><%= room.title %></h4>
+          </a>
+        </div>
+        <div class="navbar-collapse collapse" id="room<%= room.id %>-navbar-collapse-com">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/buildings/<%= @building.id %>/rooms/<%= room.id %>/features/create">Add Feature</a></li>
+            <li><a href="/buildings/<%= @building.id %>/rooms/<%= room.id %>/update">Edit </a></li>
+            <li><a href="/buildings/<%= @building.id %>/rooms/<%= room.id %>/delete"> Delete </a></li>
+            <li><a href="#" class="roomSelector" data-toggle="collapse" data-target=".room<%= room.id %>Features"> Show </a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
 
-<br>
-<br>
-<%= "#{@building.address}. #{@building.apt_no}" %><br>
-<%= "#{@building.city}, #{@building.state}. #{@building.zip_code}" %>
-<br>
-<br>
-<%= @building.landlord_name %> <br>
-
-<%= @building.move_in %> <br>
-<%= @building.move_out %><br>
-Created by:<%= @creator.name %> on <%= @building.created_at.strftime("%m/%d/%Y") %><br>
-
-<% if @editor != nil %>
-Updated by:<%= @editor.name %> on <%= @building.updated_at.strftime("%m/%d/%Y") %>
+    <% room.items.order("condition DESC").each do |item| %>
+    <ul class="list-group room<%= room.id %>Features collapse">
+      <li class="list-group-item">
+        <span class="badge <%= item.condition %>"><%= item.photos.count %></span>
+        <%= item.title %>
+      </li>
+    </ul>
+    <% end %>
 <% end %>
-<br>
-<br>
-<A HREF="/buildings/<%= @building.id%>/image">
-<IMG style="height: 250px;" SRC="<%= @building.building_image %>"></A>
-<br>
-<br>
 
-<h3> ROOMS </h3>
-<% if @no_current_room_error == true %>
-  You do not have any rooms for this rental <br>
 
-<% else %>
-   <% @rooms.each do |room| %>
-      <%= room.title %> <br>
-      <a href="/buildings/<%= @building.id %>/rooms/<%= room.id %>"> View </a>&emsp;&emsp;
-      <a href="/buildings/<%= @building.id %>/rooms/<%= room.id %>/update"> Edit </a>&emsp;&emsp;
-      <a href="/buildings/<%= @building.id %>/rooms/<%= room.id %>/delete"> Delete </a>&emsp;&emsp;<br>
-      <% end %>
-<% end %>
-<br>
-<br>
-<a href="/buildings/<%= @building.id %>/rooms/create"> Add Room </a>
-<br>
-<br>
-       <a href="/buildings/<%= @building.id %>/update"> Edit Rental Info </a>&emsp;&emsp;
-       <a href="/buildings/<%= @building.id %>/delete"> Delete Rental </a>&emsp;&emsp;
        <a href="/home">Back to Home Page</a><br>

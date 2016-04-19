@@ -26,7 +26,7 @@ MyApp.get "/buildings/:building_id" do
   @building = Building.find_by_id(params[:building_id])
   @creator = User.find_by_id(@building.created_by)
   @editor = @building.get_updated_by_user_info
-  @rooms = @building.find_rooms_for_building 
+  @rooms = @building.rooms 
       
   if @rooms == nil
     @no_current_room_error = true
