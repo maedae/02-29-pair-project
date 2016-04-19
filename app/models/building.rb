@@ -2,6 +2,7 @@
 # Each building can belong to multiple Renter Instances. Each building can have multiple Room instances.
 class Building < ActiveRecord::Base
   has_many :rooms
+  has_many :users, through: :renters
   validates :address, :city, :state, :zip_code, :move_in, :move_out, presence: true
 
   mount_uploader :building_image, MainUploader

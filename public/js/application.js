@@ -19,11 +19,12 @@ $(function () {
 
   if ($toc[0]) {
 
-        //show and hide menues
-    $( ".roomSelector" ).on( "click", function(){
-      var selectedFeatures = $(this).attr("value");
-        $("#room" + selectedFeatures + "Features").toggle();
-    });
+  $('#intro').on('show', function() {
+    $('#intro-switch').html('-')
+  })
+  $('#intro').on('hide', function() {
+    $('#intro-switch').html('+')
+  })
 
     maybeActivateDocNavigation()
     $window.on('resize', maybeActivateDocNavigation)
