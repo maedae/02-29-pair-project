@@ -86,26 +86,45 @@
                 <h4 class="text-uppercase m-y-0"><%= room.title %></h4>
               </a>
             </div>
-            <div class="navbar-collapse collapse room<%= room.id %>Info" id="room<%= room.id %>-navbar-collapse-com">
+            <div class="navbar-collapse collapse room<%= room.id %>Info">
               <ul class="nav navbar-nav navbar-right">
                 <li><a href="/buildings/<%= @building.id %>/rooms/<%= room.id %>/features/create">Add Feature</a></li>
                 <li><a href="/buildings/<%= @building.id %>/rooms/<%= room.id %>/update">Edit </a></li>
                 <li><a href="/buildings/<%= @building.id %>/rooms/<%= room.id %>/delete"> Delete </a></li>
-                <li><a href="#" class="navbar-brand"> <h4><span class="icon icon-chevron-up" data-toggle="collapse" data-target=".room<%= room.id %>Features"></span> </h4></a></li>
+                <li><a href="#" class="navbar-brand"> <h4><span class="icon icon-chevron-up" data-toggle="collapse" data-target=".room<%= room.id %>Info"></span> </h4></a></li>
               </ul>
             </div>
           </div>
         </nav>
       </div>
-
-      <ul class="list-group room<%= room.id %>Features collapse room<%= room.id %>Info">
-       <% room.items.order("condition DESC").each do |item| %>
-        <a href="/buildings/<%= @building.id %>/rooms/<%= room.id %>/features/<%= item.id %>" class="list-group-item" value="<%= item.condition %>">
-          <span class="badge"><%= item.photos.count %></span>
-          <%= item.title %>
-        </a>
-        <% end %>
-      </ul>
+      <div class="panel panel-default room<%= room.id %>Info collapse">
+      <div class="panel-heading">
+        <div class="panel-body">
+          <p>    
+            <div class="row">
+              <div class="col-sm-8 col-md-6">
+                <div class="thumbnail">
+                  <img data-action="zoom" src="<%= room.room_image %>">
+                </div>
+              </div>
+                <ul class="building-list list-group col-sm-6 col-md-4" id="room<%= room.id %>InfoList">
+                  <li class="building-list list-group-item"><strong>Room Name: </strong><%= room.title %></li>
+                  <li class="building-list list-group-item"><strong>Location: </strong> <%= room.location %></li>
+                  <li class="building-list list-group-item"><strong>Total Features: </strong><%= room.items.count %></li>
+                </ul>
+            </div>
+          </p>
+          <ul class="list-group collapse room<%= room.id %>Info">
+          <% room.items.order("condition DESC").each do |item| %>
+            <a href="/buildings/<%= @building.id %>/rooms/<%= room.id %>/features/<%= item.id %>" class="list-group-item" value="<%= item.condition %>">
+              <span class="badge"><%= item.photos.count %></span>
+              <%= item.title %>
+            </a>
+          <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
     <% end %>
     </div>
   </div>
