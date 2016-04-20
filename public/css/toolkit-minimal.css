@@ -37,6 +37,7 @@ audio:not([controls]) {
 template {
   display: none;
 }
+
 a {
   background-color: transparent;
 }
@@ -4129,6 +4130,12 @@ a.badge:focus {
 .list-group-item > .badge + .badge {
   margin-right: 5px;
 }
+
+.list-group-item__excellent {
+  border-style: solid;
+  border-width: 5px;
+  border-color: #00cc00;
+}
 .nav-pills > li > a > .badge {
   margin-left: 3px;
 }
@@ -4409,7 +4416,6 @@ a.thumbnail.active {
   padding: 10px 15px;
   margin-bottom: -1px;
   background-color: #fff;
-  border: 1px solid #ddd;
 }
 .list-group-item:first-child {
   border-top-right-radius: 4px;

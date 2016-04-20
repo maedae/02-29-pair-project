@@ -1,67 +1,111 @@
-<div class="p-y-lg p-x" style="background: url(<%= @building.building_image %>) top center; background-size: cover">
-  <nav class="navbar navbar-transparent m-b-0">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#building-navbar-collapse-com">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#">
-          <h4 class="text-uppercase m-y-0">
-          <%= "#{@building.address}. #{@building.apt_no}" %><br>
-          <%= "#{@building.city}, #{@building.state}. #{@building.zip_code}" %>
-        </h4>
-        </a>
-      </div>
-      <div class="navbar-collapse collapse" id="building-navbar-collapse-com">
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="/buildings/<%= @building.id %>/rooms/create">Add Room</a></li>
-          <li><a href="/buildings/<%= @building.id %>/update">Edit</a></li>
-          <li><a href="/buildings/<%= @building.id %>/delete">Delete</a></li>
-          <li><a href="#" class="buildingSelector hideInfo" value="<%= @building.id %>"> Show </a></li>
-        </ul>
+<div id="wrapper">
+
+  <!-- Sidebar -->
+  <div id="sidebar-wrapper">
+      <ul class="sidebar-nav">
+          <li class="sidebar-brand">
+              <a href="/">
+                  HomeRecord
+              </a>
+          </li>
+          <li>
+              <a href="/home">Dashboard</a>
+          </li>
+          <li>
+              <button class="btn btn-lg btn-primary-default" a href="/logout">Sign Out</button>
+          </li>
+      </ul>
+  </div>
+  <div id="page-content-wrapper">
+    <div class="p-y-lg p-x" style="background: url(<%= @building.building_image %>) top center; background-size: cover">
+    <a href="#menu-toggle" class="btn btn-pill btn-primary pos-r" id="menu-toggle">Toggle Menu</a>
+      <nav class="navbar navbar-transparent m-b-0">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".buildingInfo">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">
+              <h4 class="text-uppercase m-y-0">
+              <%= "#{@building.address}. #{@building.apt_no}" %><br>
+              <%= "#{@building.city}, #{@building.state}. #{@building.zip_code}" %>
+            </h4>
+            </a>
+          </div>
+          <div class="navbar-collapse collapse buildingInfo" id="building-navbar-collapse-com">
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="/buildings/<%= @building.id %>/rooms/create">Add Room</a></li>
+              <li><a href="/buildings/<%= @building.id %>/update">Edit</a></li>
+              <li><a href="/buildings/<%= @building.id %>/delete">Delete</a></li>
+              <li><a href="#" class="navbar-brand" value="<%= @building.id %>"> <h4><span data-toggle="collapse" data-target=".buildingInfo" class="icon icon-chevron-up"></span></h4> </a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div class="panel panel-default buildingInfo collapse">
+      <!-- Default panel contents -->
+      <div class="panel-heading">
+        <div class="panel-body">
+          <p>    
+            <div class="row">
+              <div class="col-sm-8 col-md-6">
+                <div class="thumbnail">
+                  <img data-action="zoom" src="<%= @building.building_image %>">
+                </div>
+              </div>
+                <ul class="building-list list-group col-sm-6 col-md-4" id="buildingInfoList">
+                  <li class="building-list list-group-item"><strong>Address: </strong><%= "#{@building.address}. #{@building.apt_no} #{@building.city}, #{@building.state}. #{@building.zip_code}" %></li>
+                  <li class="building-list list-group-item"><strong>Move-In Date: </strong> <%= @building.move_in.strftime("%m/%d/%Y") %></li>
+                  <li class="building-list list-group-item"><strong>Move-Out Date: </strong><%= @building.move_out.strftime("%m/%d/%Y") %></li>
+                  <li class="building-list list-group-item"><strong>Landlord: </strong> <%= @building.landlord_name %></li>
+                  <li class="building-list list-group-item"><strong>Co-Renters: </strong></li>
+                  <li class="building-list list-group-item"><strong>Created By: </strong><%= @creator %></li>
+                  <li class="building-list list-group-item"><strong>Updated By: </strong><%= @editor %></li>
+                </ul>
+            </div>
+          </p>
+        </div>
       </div>
     </div>
-  </nav>
-</div>
-<% @rooms.each do |room| %>
-  <div class="p-y-lg p-x" style="background: url(<%= room.room_image %>) top center; background-size: cover">
-    <nav class="navbar navbar-transparent m-b-0">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#room<%= room.id %>-navbar-collapse-com .room<%= room.id %>Features">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="/buildings/<%= @building.id %>/rooms/<%= room.id %>">
-            <h4 class="text-uppercase m-y-0"><%= room.title %></h4>
-          </a>
-        </div>
-        <div class="navbar-collapse collapse" id="room<%= room.id %>-navbar-collapse-com">
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="/buildings/<%= @building.id %>/rooms/<%= room.id %>/features/create">Add Feature</a></li>
-            <li><a href="/buildings/<%= @building.id %>/rooms/<%= room.id %>/update">Edit </a></li>
-            <li><a href="/buildings/<%= @building.id %>/rooms/<%= room.id %>/delete"> Delete </a></li>
-            <li><a href="#" class="roomSelector" data-toggle="collapse" data-target=".room<%= room.id %>Features"> Show </a></li>
-          </ul>
-        </div>
+    <% @rooms.each do |room| %>
+      <div class="p-y-lg p-x" style="background: url(<%= room.room_image %>) top center; background-size: cover">
+        <nav class="navbar navbar-transparent m-b-0">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".room<%= room.id %>Info">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="/buildings/<%= @building.id %>/rooms/<%= room.id %>">
+                <h4 class="text-uppercase m-y-0"><%= room.title %></h4>
+              </a>
+            </div>
+            <div class="navbar-collapse collapse room<%= room.id %>Info" id="room<%= room.id %>-navbar-collapse-com">
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="/buildings/<%= @building.id %>/rooms/<%= room.id %>/features/create">Add Feature</a></li>
+                <li><a href="/buildings/<%= @building.id %>/rooms/<%= room.id %>/update">Edit </a></li>
+                <li><a href="/buildings/<%= @building.id %>/rooms/<%= room.id %>/delete"> Delete </a></li>
+                <li><a href="#" class="navbar-brand"> <h4><span class="icon icon-chevron-up" data-toggle="collapse" data-target=".room<%= room.id %>Features"></span> </h4></a></li>
+              </ul>
+            </div>
+          </div>
+        </nav>
       </div>
-    </nav>
-  </div>
 
-    <% room.items.order("condition DESC").each do |item| %>
-    <ul class="list-group room<%= room.id %>Features collapse">
-      <li class="list-group-item">
-        <span class="badge <%= item.condition %>"><%= item.photos.count %></span>
-        <%= item.title %>
-      </li>
-    </ul>
+      <ul class="list-group room<%= room.id %>Features collapse room<%= room.id %>Info">
+       <% room.items.order("condition DESC").each do |item| %>
+        <a href="/buildings/<%= @building.id %>/rooms/<%= room.id %>/features/<%= item.id %>" class="list-group-item" value="<%= item.condition %>">
+          <span class="badge"><%= item.photos.count %></span>
+          <%= item.title %>
+        </a>
+        <% end %>
+      </ul>
     <% end %>
-<% end %>
-
-
-       <a href="/home">Back to Home Page</a><br>
+    </div>
+  </div>

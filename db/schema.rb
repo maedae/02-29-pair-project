@@ -25,8 +25,8 @@ ActiveRecord::Schema.define(version: 0) do
     t.string   "zip_code"
     t.string   "landlord_name"
     t.string   "building_image"
-    t.string   "move_in"
-    t.string   "move_out"
+    t.date     "move_in"
+    t.date     "move_out"
     t.boolean  "locked"
     t.integer  "created_by"
     t.integer  "updated_by"
@@ -54,8 +54,6 @@ ActiveRecord::Schema.define(version: 0) do
     t.datetime "updated_at", null: false
     t.string   "item_id"
     t.string   "image"
-    t.integer  "created_by"
-    t.integer  "updated_by"
   end
 
   create_table "renters", force: :cascade do |t|

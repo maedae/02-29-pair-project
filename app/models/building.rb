@@ -6,19 +6,6 @@ class Building < ActiveRecord::Base
   validates :address, :city, :state, :zip_code, :move_in, :move_out, presence: true
 
   mount_uploader :building_image, MainUploader
-  
-  # Method finds all associated Rooms for a Building,
-  # and puts each into an Array.
-  #
-  # Returns an Array of Room IDs(@arr_rooms)
-  # If the Array is empty, method RETURNS nil
-  def find_rooms_for_building
-    return Room.where({"building_id" => self.id})
-  end
-
-  def find_room_id_array_for_room
-    return Room.where({"building_id" => self.id}).pluck(:id)
-  end
 
   # Method Passes in building instance ID and user ID. Searches for the renter with those perimeters and deletes the renter.
   def delete_renter_when_deleting_building(user_id)
@@ -37,10 +24,12 @@ class Building < ActiveRecord::Base
   end
 
   def get_created_by_user_info
-    return User.find_by_id(self.created_by)
+        user = User.find_by_id(self.created_by)
+    return user != nil ?  user.name : nil
   end
 
   def get_updated_by_user_info
-    return self.updated_by != nil ?  User.find_by_id(self.updated_by) : nil
+    user = User.find_by_id(self.updated_by)
+    return user != nil ?  user.name : nil
   end
 end

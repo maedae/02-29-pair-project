@@ -24,7 +24,7 @@ MyApp.post "/logout" do
   if @current_user == nil
      redirect :"/login"
   else
-    session[:user_id] = nil
+    session[:user_id].destroy
     redirect :"/login"
   end
 end

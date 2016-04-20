@@ -1,3 +1,5 @@
+require 'date'
+
 MyApp.before "/buildings*" do 
     @current_user = User.find_by_id(session[:user_id])
     if @current_user == nil
@@ -24,7 +26,7 @@ end
 MyApp.get "/buildings/:building_id" do
   @current_user = User.find_by_id(session[:user_id])
   @building = Building.find_by_id(params[:building_id])
-  @creator = User.find_by_id(@building.created_by)
+  @creator = @building.get_created_by_user_info
   @editor = @building.get_updated_by_user_info
   @rooms = @building.rooms 
       
@@ -32,12 +34,6 @@ MyApp.get "/buildings/:building_id" do
     @no_current_room_error = true
   end
   erb :"/buildings/view_one_building"
-end
-
-MyApp.get "/buildings/:building_id/image" do
-  @current_user = User.find_by_id(session[:user_id])
-  @building = Building.find_by_id(params[:building_id])
-  erb :"/buildings/view_large_building_image"
 end
 
 MyApp.post "/buildings/create/confirmation" do
